@@ -1,7 +1,7 @@
 <p align="center">
  <img width="200px" src="public/assets/images/logo.png" align="center" alt="Kampong" />
  <h2 align="center">Kampong Core Backend</h2>
- <p align="center">Backend web service in TypeScript, NodeJS, Express, and PostgreSQL for Project Kampong.</p>
+ <p align="center"> Core Backend in NestJS and MongoDB for Project Kampong.</p>
 </p>
 
 ## Quick Start

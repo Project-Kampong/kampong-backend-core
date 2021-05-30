@@ -10,7 +10,7 @@
     "build": "nest build",
     "check:format": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\"",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
+    "start": "node dist/main",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
@@ -23,8 +23,10 @@
   },
   "dependencies": {
     "@nestjs/common": "^7.6.15",
+    "@nestjs/config": "^0.6.3",
     "@nestjs/core": "^7.6.15",
     "@nestjs/platform-express": "^7.6.15",
+    "joi": "^17.4.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.6"

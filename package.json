@@ -26,6 +26,8 @@
     "@nestjs/config": "^0.6.3",
     "@nestjs/core": "^7.6.15",
     "@nestjs/platform-express": "^7.6.15",
+    "@nestjs/platform-socket.io": "^7.6.17",
+    "@nestjs/websockets": "^7.6.17",
     "joi": "^17.4.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",

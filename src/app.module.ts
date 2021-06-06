@@ -4,6 +4,7 @@ import * as Joi from 'joi';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthController } from './auth/auth.controller';
+import { ChatGateway } from './chat.gateway';
 
 @Module({
   imports: [
@@ -19,6 +20,6 @@ import { AuthController } from './auth/auth.controller';
     }),
   ],
   controllers: [AppController, AuthController],
-  providers: [AppService],
+  providers: [AppService, ChatGateway],
 })
 export class AppModule {}

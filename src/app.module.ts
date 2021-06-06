@@ -4,6 +4,9 @@ import * as Joi from 'joi';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthController } from './auth/auth.controller';
+import authService from './user/auth.service';
+import { userController } from './user/user.controller';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -17,8 +20,9 @@ import { AuthController } from './auth/auth.controller';
         PORT: Joi.number().default(3000),
       }),
     }),
+    UserModule,
   ],
-  controllers: [AppController, AuthController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}

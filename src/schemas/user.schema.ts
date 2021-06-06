@@ -1,0 +1,25 @@
+import * as mongoose from 'mongoose';
+
+export const UserSchema = new mongoose.Schema({
+  user_id: String,
+  username: String,
+  email: String,
+  password: String,
+  role: String,
+  is_activated: Boolean,
+  first_name: String,
+  last_name: String,
+  nickname: String,
+  profilePicture: String,
+  about: String,
+  gender: String,
+  dob: Date,
+  occupation: String,
+  phone: String,
+  facebook_link: String,
+  twitter_link: String,
+  instagram_link: String,
+  linekd_link: String,
+  is_verified: Boolean,
+  created_on: Date,
+});

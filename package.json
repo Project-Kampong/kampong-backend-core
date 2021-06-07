@@ -1,8 +1,8 @@
 {
   "name": "kampong-backend-core",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Kampong Backend Core",
+  "author": "Project Kampong",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

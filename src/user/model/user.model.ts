@@ -1,9 +1,9 @@
-export class userLoginDTO {
+export class UserLoginDTO {
   username: string;
   password: string;
 }
 
-export class userDTO {
+export class UserDTO {
   user_id: string;
   username: string;
   email: string;
@@ -12,7 +12,7 @@ export class userDTO {
   is_activated: boolean;
 }
 
-export class profileDTO {
+export class ProfileDTO {
   user_id: string;
   first_name: string;
   last_name: string;

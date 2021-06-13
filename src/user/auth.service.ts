@@ -1,9 +1,9 @@
-import { Inject, Injectable, Render } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { sign } from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 import { UserSchema } from '../schemas/user.schema';
-import { userLoginDTO } from './model/user.model';
+import { UserLoginDTO } from './model/user.model';
 
 @Injectable()
 export class authService {
@@ -12,7 +12,7 @@ export class authService {
     private userModel: Model<typeof UserSchema>,
   ) {}
 
-  public async loginService(userLoginDTO) {
+  public async loginService(userLoginDTO: UserLoginDTO) {
     const loginUser = await this.userModel.findOne({
       username: userLoginDTO.username,
     });

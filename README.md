@@ -55,8 +55,8 @@ $ npm run start:prod
 
 ```bash
 # unit tests
-$ npm run test
+$ yarn test
 
 # test coverage
-$ npm run test:cov
+$ yarn test:cov
 ```

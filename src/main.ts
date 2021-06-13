@@ -1,24 +1,30 @@
 import { Logger } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
+const GLOBAL_PREFIX = 'api';
+
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  const globalPrefix = 'api';
-  app.setGlobalPrefix(globalPrefix);
-  const port = process.env.PORT || 3333;
+  app.setGlobalPrefix(GLOBAL_PREFIX);
+  const configService = app.get(ConfigService);
+  const port = configService.get('PORT');
 
   const options = new DocumentBuilder()
-    .setTitle('Kampong backend services')
-    .setDescription('API for kampong backend service')
+    .setTitle('Kampong Core Backend')
+    .setDescription('API for Kampong Core Backend')
     .setVersion('1.0')
     .build();
+
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
-  await app.listen(port, () => {
-    Logger.log('Listening at http://localhost:' + port + '/' + globalPrefix);
+  app.listen(port, () => {
+    Logger.log(
+      'Server listening on http://localhost:' + port + '/' + GLOBAL_PREFIX,
+    );
   });
 }
 

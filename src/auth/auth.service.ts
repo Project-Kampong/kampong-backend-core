@@ -16,17 +16,20 @@ export class AuthService {
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
   ) {}
 
-  public async login(UserLoginReqDto: UserLoginReqDto) {
-    const loginUser = await this.userModel.findOne({
-      username: UserLoginReqDto.username,
-    });
+  public async login(userLoginReqDto: UserLoginReqDto) {
+    const { username, password } = userLoginReqDto;
+
+    const loginUser = await this.userModel
+      .findOne({
+        username,
+      })
+      .lean()
+      .exec();
+
     if (!loginUser) {
       throw new NotFoundException('User does not exist');
     }
-    const isEqual = await this.checkPassword(
-      UserLoginReqDto.password,
-      loginUser.password,
-    );
+    const isEqual = await this.checkPassword(password, loginUser.password);
     if (!isEqual) {
       throw new BadRequestException('Password is incorrect');
     }
@@ -39,7 +42,7 @@ export class AuthService {
   }
 
   private getSignedJwtToken(loginUser) {
-    sign(
+    return sign(
       { userId: loginUser._id, userEmail: loginUser.email },
       process.env.JWT_SECRET,
       {
@@ -50,7 +53,7 @@ export class AuthService {
 
   private async hashPassword(password) {
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const hashedPassword = bcrypt.hash(password, salt);
     return hashedPassword;
   }
 

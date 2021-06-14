@@ -4,8 +4,11 @@ export const databaseProviders = [
   {
     provide: 'DATABASE_CONNECTION',
     useFactory: (): Promise<typeof mongoose> =>
-      mongoose.connect(
-        'mongodb+srv://Admin:buildconnect2020@buildconnect.izi7l.mongodb.net/BuildConnect?retryWrites=true&w=majority',
-      ),
+      mongoose.connect(process.env.MONGO_URI, {
+        useCreateIndex: true,
+        useFindAndModify: false,
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      }),
   },
 ];

@@ -8,7 +8,10 @@ import { UserLoginReqDto } from './dtos/login.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
   @Post('login')
-  async login(@Body() userLoginReqDto: UserLoginReqDto) {
-    return this.authService.login(userLoginReqDto);
+  async userLogin(@Body() userLoginReqDto: UserLoginReqDto) {
+    return this.authService.userLogin(
+      userLoginReqDto.username,
+      userLoginReqDto.password,
+    );
   }
 }

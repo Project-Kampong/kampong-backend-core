@@ -8,7 +8,6 @@ import { Model } from 'mongoose';
 import { sign } from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 import { User, UserDocument } from '../users/schemas/user.schema';
-import { UserLoginReqDto } from './dtos/login.dto';
 
 @Injectable()
 export class AuthService {
@@ -16,9 +15,7 @@ export class AuthService {
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
   ) {}
 
-  public async login(userLoginReqDto: UserLoginReqDto) {
-    const { username, password } = userLoginReqDto;
-
+  async userLogin(username: string, password: string) {
     const loginUser = await this.userModel
       .findOne({
         username,

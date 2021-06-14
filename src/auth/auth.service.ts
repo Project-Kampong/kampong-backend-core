@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { sign } from 'jsonwebtoken';
@@ -17,14 +21,14 @@ export class AuthService {
       username: UserLoginReqDto.username,
     });
     if (!loginUser) {
-      throw new Error('User does not exist');
+      throw new NotFoundException('User does not exist');
     }
     const isEqual = await this.checkPassword(
       UserLoginReqDto.password,
       loginUser.password,
     );
     if (!isEqual) {
-      throw new Error('Password is incorrect');
+      throw new BadRequestException('Password is incorrect');
     }
     const token = this.getSignedJwtToken(loginUser);
     return {

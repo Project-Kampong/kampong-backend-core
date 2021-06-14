@@ -21,7 +21,7 @@ export class AuthService {
     }
     const isEqual = await this.checkPassword(
       UserLoginReqDto.password,
-      UserLoginReqDto.password,
+      loginUser.password,
     );
     if (!isEqual) {
       throw new Error('Password is incorrect');

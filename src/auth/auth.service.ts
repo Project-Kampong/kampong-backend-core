@@ -4,7 +4,7 @@ import { Model } from 'mongoose';
 import { sign } from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 import { User, UserDocument } from '../users/schemas/user.schema';
-import { UserLoginDTO } from './dtos/login.dto';
+import { UserLoginReqDto } from './dtos/login.dto';
 
 @Injectable()
 export class AuthService {
@@ -12,16 +12,16 @@ export class AuthService {
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
   ) {}
 
-  public async login(userLoginDTO: UserLoginDTO) {
+  public async login(UserLoginReqDto: UserLoginReqDto) {
     const loginUser = await this.userModel.findOne({
-      username: userLoginDTO.username,
+      username: UserLoginReqDto.username,
     });
     if (!loginUser) {
       throw new Error('User does not exist');
     }
     const isEqual = this.checkPassword(
-      userLoginDTO.password,
-      userLoginDTO.password,
+      UserLoginReqDto.password,
+      UserLoginReqDto.password,
     );
     if (!isEqual) {
       throw new Error('Password is incorrect');

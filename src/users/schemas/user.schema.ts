@@ -42,7 +42,7 @@ export class User {
   @Prop()
   instagram_link: string;
   @Prop()
-  linekd_link: string;
+  linkedin_link: string;
   @Prop()
   is_verified: boolean;
   @Prop()

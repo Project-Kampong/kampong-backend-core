@@ -1,9 +1,10 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import * as Joi from 'joi';
 import { UserModule } from './users/user.module';
 import { AuthModule } from './auth/auth.module';
+import * as mongoSanitize from 'express-mongo-sanitize';
 
 @Module({
   imports: [
@@ -29,4 +30,8 @@ import { AuthModule } from './auth/auth.module';
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(mongoSanitize());
+  }
+}

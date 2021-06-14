@@ -15,11 +15,10 @@ jobs:
           check-latest: true
       - name: Install global dependencies
         run: |
-          npm install -g yarn
           npm install -g @nestjs/cli
 
       - name: Install dependencies, check formatting and build
         run: |
-          yarn install
-          yarn check:format
-          yarn build
+          npm install
+          npm run check:format
+          npm run build

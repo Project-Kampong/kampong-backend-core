@@ -1,8 +1,8 @@
 {
   "name": "kampong-backend-core",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Kampong Backend Core",
+  "author": "Project Kampong",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -25,16 +25,24 @@
     "@nestjs/common": "^7.6.15",
     "@nestjs/config": "^0.6.3",
     "@nestjs/core": "^7.6.15",
+    "@nestjs/mongoose": "^7.2.4",
     "@nestjs/platform-express": "^7.6.15",
+    "@nestjs/swagger": "^4.8.0",
+    "bcryptjs": "^2.4.3",
+    "express-mongo-sanitize": "^2.1.0",
     "joi": "^17.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.13",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^6.6.6"
+    "rxjs": "^6.6.6",
+    "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.6.0",
     "@nestjs/schematics": "^7.3.0",
     "@nestjs/testing": "^7.6.15",
+    "@types/bcryptjs": "^2.4.2",
     "@types/express": "^4.17.11",
     "@types/jest": "^26.0.22",
     "@types/node": "^14.14.36",

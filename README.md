@@ -13,8 +13,7 @@ App requires the following dependencies to be installed locally (in the followin
 | No  | Dependency           | Installation Instruction                                                                                   |
 | --- | -------------------- | ---------------------------------------------------------------------------------------------------------- |
 | 1   | NodeJS v16 (via nvm) | Install nvm: https://github.com/nvm-sh/nvm <br /> Run `nvm install && nvm use` <br /> To verify: `node -v` |
-| 2   | Yarn                 | Install yarn: `npm install -g yarn` <br /> To verify: `yarn -v`                                            |
-| 3   | NestJS 7 (Optional)  | Install NestJS CLI: https://docs.nestjs.com <br /> To verify: `nest -v`                                    |
+| 2   | NestJS 7 (Optional)  | Install NestJS CLI: https://docs.nestjs.com <br /> To verify: `nest -v`                                    |
 
 > **NB**: NestJS installation is recommended for dev. It is not required to run the app.
 
@@ -39,17 +38,17 @@ Refer to this [guide](https://docs.mongodb.com/drivers/node/master/quick-start/#
 ### Installation
 
 ```bash
-$ yarn install
+$ npm install
 ```
 
 ### Running the app
 
 ```bash
 # development watch mode
-$ yarn start:dev
+$ npm run start:dev
 
 # production mode
-$ yarn start:prod
+$ npm run start:prod
 ```
 
 ### Test

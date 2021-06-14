@@ -1,9 +1,10 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
 import * as Joi from 'joi';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { AuthController } from './auth/auth.controller';
+import { UserModule } from './users/user.module';
+import { AuthModule } from './auth/auth.module';
+import * as mongoSanitize from 'express-mongo-sanitize';
 
 @Module({
   imports: [
@@ -17,8 +18,20 @@ import { AuthController } from './auth/auth.controller';
         PORT: Joi.number().default(3000),
       }),
     }),
+    MongooseModule.forRoot(process.env.MONGO_URI, {
+      useCreateIndex: true,
+      useFindAndModify: false,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }),
+    UserModule,
+    AuthModule,
   ],
-  controllers: [AppController, AuthController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(mongoSanitize());
+  }
+}

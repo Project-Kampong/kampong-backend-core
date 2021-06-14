@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
 import * as Joi from 'joi';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from './user/user.module';
+import { UserModule } from './users/user.module';
 
 @Module({
   imports: [
@@ -16,6 +17,12 @@ import { UserModule } from './user/user.module';
           .default('development'),
         PORT: Joi.number().default(3000),
       }),
+    }),
+    MongooseModule.forRoot(process.env.MONGO_URI, {
+      useCreateIndex: true,
+      useFindAndModify: false,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
     }),
     UserModule,
   ],

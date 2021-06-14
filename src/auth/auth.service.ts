@@ -7,6 +7,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { sign } from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
+import { isEmpty } from 'lodash';
 import { User, UserDocument } from '../users/schemas/user.schema';
 import { UserLoginDto } from './dtos/userLogin.dto';
 import { UserRegisterDto } from './dtos/userRegister.dto';
@@ -18,14 +19,9 @@ export class AuthService {
   ) {}
 
   async userLogin(username: string, password: string): Promise<UserLoginDto> {
-    const loginUser = await this.userModel
-      .findOne({
-        username,
-      })
-      .lean()
-      .exec();
+    const loginUser = await this.userModel.findOne({ username }).lean().exec();
 
-    if (!loginUser) {
+    if (isEmpty(loginUser)) {
       throw new NotFoundException('User does not exist');
     }
     const isEqual = await this.checkPassword(password, loginUser.password);
@@ -49,7 +45,7 @@ export class AuthService {
       .find({ $or: [{ username }, { email }] })
       .lean()
       .exec();
-    if (userExists) {
+    if (!isEmpty(userExists)) {
       throw new BadRequestException('Email or username already exists');
     }
 

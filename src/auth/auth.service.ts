@@ -19,7 +19,7 @@ export class AuthService {
     if (!loginUser) {
       throw new Error('User does not exist');
     }
-    const isEqual = this.checkPassword(
+    const isEqual = await this.checkPassword(
       UserLoginReqDto.password,
       UserLoginReqDto.password,
     );
@@ -50,8 +50,8 @@ export class AuthService {
     return hashedPassword;
   }
 
-  private async checkPassword(inputPassword: string, originalPassword: string) {
-    await bcrypt.compare(inputPassword, originalPassword);
+  private checkPassword(inputPassword: string, originalPassword: string) {
+    return bcrypt.compare(inputPassword, originalPassword);
   }
 }
 

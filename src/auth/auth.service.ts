@@ -9,8 +9,8 @@ import { sign } from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 import { isEmpty } from 'lodash';
 import { User, UserDocument } from '../users/schemas/user.schema';
-import { UserLoginDto } from './dtos/userLogin.dto';
-import { UserRegisterDto } from './dtos/userRegister.dto';
+import { UserLoginDto } from './dto/userLogin.dto';
+import { UserRegisterDto } from './dto/userRegister.dto';
 
 @Injectable()
 export class AuthService {

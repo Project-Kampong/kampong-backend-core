@@ -1,10 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { sign } from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
+import { isEmpty } from 'lodash';
 import { User, UserDocument } from '../users/schemas/user.schema';
-import { UserLoginReqDto } from './dtos/login.dto';
+import { UserLoginDto } from './dtos/userLogin.dto';
+import { UserRegisterDto } from './dtos/userRegister.dto';
 
 @Injectable()
 export class AuthService {
@@ -12,30 +18,53 @@ export class AuthService {
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
   ) {}
 
-  public async login(UserLoginReqDto: UserLoginReqDto) {
-    const loginUser = await this.userModel.findOne({
-      username: UserLoginReqDto.username,
-    });
-    if (!loginUser) {
-      throw new Error('User does not exist');
+  async userLogin(username: string, password: string): Promise<UserLoginDto> {
+    const loginUser = await this.userModel.findOne({ username }).lean().exec();
+
+    if (isEmpty(loginUser)) {
+      throw new NotFoundException('User does not exist');
     }
-    const isEqual = await this.checkPassword(
-      UserLoginReqDto.password,
-      loginUser.password,
-    );
+    const isEqual = await this.checkPassword(password, loginUser.password);
     if (!isEqual) {
-      throw new Error('Password is incorrect');
+      throw new BadRequestException('Password is incorrect');
     }
     const token = this.getSignedJwtToken(loginUser);
     return {
       userId: loginUser._id,
-      token: token,
+      token,
       tokenExpiration: process.env.JWT_EXPIRE,
     };
   }
 
-  private getSignedJwtToken(loginUser) {
-    sign(
+  async userRegister(
+    username: string,
+    email: string,
+    password: string,
+  ): Promise<UserRegisterDto> {
+    const userExists = await this.userModel
+      .find({ $or: [{ username }, { email }] })
+      .lean()
+      .exec();
+    if (!isEmpty(userExists)) {
+      throw new BadRequestException('Email or username already exists');
+    }
+
+    const newUser = await this.userModel.create({
+      username,
+      email,
+      password: await this.hashPassword(password),
+    });
+
+    const token = this.getSignedJwtToken(newUser);
+    return {
+      userId: newUser._id,
+      token,
+      tokenExpiration: process.env.JWT_EXPIRE,
+    };
+  }
+
+  private getSignedJwtToken(loginUser: User) {
+    return sign(
       { userId: loginUser._id, userEmail: loginUser.email },
       process.env.JWT_SECRET,
       {
@@ -46,7 +75,7 @@ export class AuthService {
 
   private async hashPassword(password) {
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const hashedPassword = bcrypt.hash(password, salt);
     return hashedPassword;
   }
 

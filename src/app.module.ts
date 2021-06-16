@@ -1,10 +1,12 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
+import * as mongoSanitize from 'express-mongo-sanitize';
 import * as Joi from 'joi';
+import { join } from 'path';
 import { UserModule } from './users/user.module';
 import { AuthModule } from './auth/auth.module';
-import * as mongoSanitize from 'express-mongo-sanitize';
 
 @Module({
   imports: [
@@ -23,6 +25,10 @@ import * as mongoSanitize from 'express-mongo-sanitize';
       useFindAndModify: false,
       useNewUrlParser: true,
       useUnifiedTopology: true,
+    }),
+    GraphQLModule.forRoot({
+      installSubscriptionHandlers: true,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
     UserModule,
     AuthModule,

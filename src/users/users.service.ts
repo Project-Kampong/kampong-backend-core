@@ -13,6 +13,10 @@ export class UsersService {
     return this.userModel.find();
   }
 
+  async findOneById(userId: string) {
+    return this.userModel.findById(userId);
+  }
+
   async deleteById(userId: string) {
     return this.userModel.findByIdAndDelete(userId);
   }

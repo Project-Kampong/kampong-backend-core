@@ -1,0 +1,35 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  username: String!
+  email: String!
+  password: String!
+  role: String!
+  is_activated: Boolean!
+  first_name: String!
+  last_name: String!
+  nickname: String!
+  profilePicture: String!
+  about: String!
+  gender: String!
+  dob: DateTime!
+  occupation: String!
+  phone: String!
+  facebook_link: String!
+  twitter_link: String!
+  instagram_link: String!
+  linkedin_link: String!
+  is_verified: Boolean!
+  created_on: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Query {
+  findOneById(userId: String!): User!
+}

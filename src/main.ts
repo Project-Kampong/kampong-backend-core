@@ -23,7 +23,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
   app.listen(port, () => {
     Logger.log(
-      'Server listening on http://localhost:' + port + '/' + GLOBAL_PREFIX,
+      `Server listening on http://localhost:${port}/${GLOBAL_PREFIX} in ${process.env.NODE_ENV} mode`,
     );
   });
 }

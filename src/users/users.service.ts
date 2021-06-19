@@ -17,7 +17,7 @@ export class UsersService {
     return this.userModel.findById(userId);
   }
 
-  async deleteById(userId: string) {
+  async deleteUserById(userId: string) {
     return this.userModel.findByIdAndDelete(userId);
   }
 }

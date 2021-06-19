@@ -14,6 +14,6 @@ export class UsersController {
 
   @Delete('/:userId')
   async deleteById(@Param('userId') userId: string) {
-    return this.usersService.deleteById(userId);
+    return this.usersService.deleteUserById(userId);
   }
 }

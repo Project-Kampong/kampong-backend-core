@@ -7,13 +7,15 @@ type User {
   username: String!
   email: String!
   password: String!
-  role: String!
-  is_activated: Boolean!
-  name: String!
-  profile_picture: String!
-  gender: String!
-  dob: DateTime!
-  occupation: String!
+  role: String
+  is_activated: Boolean
+  name: String
+  profile_picture: String
+  gender: String
+  dob: DateTime
+  occupation: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 """
@@ -24,4 +26,8 @@ scalar DateTime
 type Query {
   users: [User!]!
   user(_id: String!): User!
+}
+
+type Mutation {
+  deleteUser(_id: String!): User!
 }

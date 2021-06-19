@@ -30,6 +30,7 @@ import { AuthModule } from './auth/auth.module';
       installSubscriptionHandlers: true,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       playground: true,
+      introspection: true,
     }),
     UsersModule,
     AuthModule,

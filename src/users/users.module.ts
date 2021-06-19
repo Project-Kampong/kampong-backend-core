@@ -13,4 +13,4 @@ import { UsersResolver } from './users.resolver';
   providers: [UsersService, UsersResolver],
   exports: [MongooseModule],
 })
-export class UserModule {}
+export class UsersModule {}

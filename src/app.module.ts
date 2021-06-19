@@ -5,7 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import * as mongoSanitize from 'express-mongo-sanitize';
 import * as Joi from 'joi';
 import { join } from 'path';
-import { UserModule } from './users/user.module';
+import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
@@ -30,7 +30,7 @@ import { AuthModule } from './auth/auth.module';
       installSubscriptionHandlers: true,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
-    UserModule,
+    UsersModule,
     AuthModule,
   ],
   controllers: [],

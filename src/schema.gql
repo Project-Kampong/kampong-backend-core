@@ -3,26 +3,17 @@
 # ------------------------------------------------------
 
 type User {
+  _id: ID!
   username: String!
   email: String!
   password: String!
   role: String!
   is_activated: Boolean!
-  first_name: String!
-  last_name: String!
-  nickname: String!
-  profilePicture: String!
-  about: String!
+  name: String!
+  profile_picture: String!
   gender: String!
   dob: DateTime!
   occupation: String!
-  phone: String!
-  facebook_link: String!
-  twitter_link: String!
-  instagram_link: String!
-  linkedin_link: String!
-  is_verified: Boolean!
-  created_on: DateTime!
 }
 
 """

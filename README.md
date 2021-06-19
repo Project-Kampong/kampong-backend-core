@@ -60,3 +60,9 @@ $ npm run test
 # test coverage
 $ npm run test:cov
 ```
+
+### API Documentation + Test Endpoints
+
+[Swagger API](https://pkgcore-test.herokuapp.com/api/)
+
+[GraphQL Playground](https://pkgcore-test.herokuapp.com/graphql/)

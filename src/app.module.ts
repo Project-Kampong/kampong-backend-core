@@ -29,6 +29,7 @@ import { AuthModule } from './auth/auth.module';
     GraphQLModule.forRoot({
       installSubscriptionHandlers: true,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      playground: true,
     }),
     UsersModule,
     AuthModule,

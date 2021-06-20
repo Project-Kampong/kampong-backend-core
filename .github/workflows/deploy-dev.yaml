@@ -1,0 +1,20 @@
+name: Deploy to dev server
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy-dev:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v1
+      - name: Deploy to dev server
+        uses: appleboy/ssh-action@master
+        with:
+          HOST: ${{ secrets.DEV_HOST }}
+          USERNAME: root
+          PORT: 22
+          PASSWORD: ${{ secrets.DEV_PASSWORD }}
+          script: |
+            ~/update/kampong-backend-core.sh

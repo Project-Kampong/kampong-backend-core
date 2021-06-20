@@ -31,6 +31,7 @@ export class AuthService {
     const token = this.getSignedJwtToken(loginUser);
     return {
       userId: loginUser._id,
+      username: loginUser.username,
       token,
       tokenExpiration: process.env.JWT_EXPIRE,
     };
@@ -57,6 +58,7 @@ export class AuthService {
     const token = this.getSignedJwtToken(newUser);
     return {
       userId: newUser._id,
+      username: newUser.username,
       token,
       tokenExpiration: process.env.JWT_EXPIRE,
     };

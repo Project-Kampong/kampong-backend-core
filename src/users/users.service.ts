@@ -9,15 +9,18 @@ export class UsersService {
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
   ) {}
 
-  async list() {
-    return this.userModel.find();
+  async list(showPassword = false) {
+    if (showPassword) {
+      return this.userModel.find().lean().exec();
+    }
+    return this.userModel.find().select('-password').lean().exec();
   }
 
   async findUserById(userId: string) {
-    return this.userModel.findById(userId);
+    return this.userModel.findById(userId).lean().exec();
   }
 
   async deleteUserById(userId: string) {
-    return this.userModel.findByIdAndDelete(userId);
+    return this.userModel.findByIdAndDelete(userId).lean().exec();
   }
 }

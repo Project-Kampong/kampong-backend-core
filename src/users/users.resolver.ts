@@ -10,7 +10,7 @@ export class UsersResolver {
 
   @Query((returns) => [User], { name: 'users' })
   async list() {
-    return this.usersService.list();
+    return this.usersService.list(true);
   }
 
   @Query((returns) => User, { name: 'user' })

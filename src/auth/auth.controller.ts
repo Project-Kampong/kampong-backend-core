@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import AuthService from './auth.service';
 import { UserLoginReqDto, UserLoginResDto } from './dto/userLogin.dto';
@@ -9,6 +9,7 @@ import { UserRegisterReqDto, UserRegisterResDto } from './dto/userRegister.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
   @Post('login')
+  @HttpCode(HttpStatus.OK)
   @ApiOkResponse({
     status: 200,
     description: 'User logged in',

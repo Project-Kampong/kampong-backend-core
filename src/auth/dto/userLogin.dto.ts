@@ -3,6 +3,8 @@ import { ApiProperty } from '@nestjs/swagger';
 export class UserLoginDto {
   userId: string;
 
+  username: string;
+
   token: string;
 
   tokenExpiration: string;
@@ -19,6 +21,9 @@ export class UserLoginReqDto {
 export class UserLoginResDto {
   @ApiProperty()
   userId: string;
+
+  @ApiProperty()
+  username: string;
 
   @ApiProperty()
   token: string;

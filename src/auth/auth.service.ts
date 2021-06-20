@@ -41,11 +41,10 @@ export class AuthService {
     email: string,
     password: string,
   ): Promise<UserRegisterDto> {
-    const userExists = await this.userModel
-      .find({ $or: [{ username }, { email }] })
-      .lean()
-      .exec();
-    if (!isEmpty(userExists)) {
+    const userExists = await this.userModel.exists({
+      $or: [{ username }, { email }],
+    });
+    if (userExists) {
       throw new BadRequestException('Email or username already exists');
     }
 

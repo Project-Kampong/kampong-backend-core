@@ -2,7 +2,7 @@ import { Controller, Delete, Get, Param } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 
-@ApiTags('users')
+@ApiTags('Internal')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -14,6 +14,6 @@ export class UsersController {
 
   @Delete('/:userId')
   async deleteById(@Param('userId') userId: string) {
-    return this.usersService.deleteById(userId);
+    return this.usersService.deleteUserById(userId);
   }
 }

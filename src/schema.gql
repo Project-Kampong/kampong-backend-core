@@ -23,11 +23,71 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type Question {
+  _id: ID!
+  userId: ID!
+  username: String!
+  questionText: String!
+  voteCount: Int!
+  answers: [Answer!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Answer {
+  _id: ID!
+  userId: ID!
+  username: String!
+  answerText: String!
+  voteCount: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type QnaSession {
+  questions: [Question!]!
+}
+
+type OrganizedEvent {
+  _id: ID!
+
+  """Example field (placeholder)"""
+  eventName: String!
+  startDate: DateTime!
+  endDate: DateTime!
+  description: String!
+
+  """Organizer's user ID"""
+  organizerId: ID!
+  category: String!
+  eventPassword: String!
+  qnaSessionOpen: Boolean!
+  qnaSession: QnaSession!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
 type Query {
   users: [User!]!
   user(_id: String!): User!
+  organizedEvents: [OrganizedEvent!]!
+  organizedEvent(id: Int!): OrganizedEvent!
 }
 
 type Mutation {
   deleteUser(_id: String!): User!
+  createOrganizedEvent(createOrganizedEventInput: CreateOrganizedEventInput!): OrganizedEvent!
+  updateOrganizedEvent(updateOrganizedEventInput: UpdateOrganizedEventInput!): OrganizedEvent!
+  removeOrganizedEvent(id: Int!): OrganizedEvent!
+}
+
+input CreateOrganizedEventInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateOrganizedEventInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }

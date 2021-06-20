@@ -31,6 +31,7 @@ import { AuthModule } from './auth/auth.module';
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       playground: true,
       introspection: true,
+      cors: true,
     }),
     UsersModule,
     AuthModule,

@@ -46,7 +46,7 @@ class QnaSession {
 export class OrganizedEvent {
   @Field(() => ID)
   _id: string;
-  @Field(() => String, { description: 'Example field (placeholder)' })
+  @Field(() => String)
   eventName: string;
   @Field()
   startDate: Date;

@@ -23,23 +23,21 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type Question {
+type Answer {
   _id: ID!
   userId: ID!
-  username: String!
-  questionText: String!
+  answerText: String!
   voteCount: Int!
-  answers: [Answer!]!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
 
-type Answer {
+type Question {
   _id: ID!
   userId: ID!
-  username: String!
-  answerText: String!
+  questionText: String!
   voteCount: Int!
+  answers: [Answer!]!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -50,8 +48,6 @@ type QnaSession {
 
 type OrganizedEvent {
   _id: ID!
-
-  """Example field (placeholder)"""
   eventName: String!
   startDate: DateTime!
   endDate: DateTime!

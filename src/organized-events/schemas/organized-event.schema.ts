@@ -48,6 +48,8 @@ class Question {
 @ObjectType()
 @Schema()
 class QnaSession {
+  @Field(() => ID)
+  _id: string;
   @Field(() => [Question])
   @Prop([Question])
   questions: Question[];

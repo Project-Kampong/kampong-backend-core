@@ -43,6 +43,7 @@ type Question {
 }
 
 type QnaSession {
+  _id: ID!
   questions: [Question!]!
 }
 

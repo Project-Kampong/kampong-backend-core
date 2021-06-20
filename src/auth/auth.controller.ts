@@ -1,5 +1,5 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import AuthService from './auth.service';
 import { UserLoginReqDto, UserLoginResDto } from './dto/userLogin.dto';
 import { UserRegisterReqDto, UserRegisterResDto } from './dto/userRegister.dto';
@@ -9,7 +9,11 @@ import { UserRegisterReqDto, UserRegisterResDto } from './dto/userRegister.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
   @Post('login')
-  @ApiOkResponse({ status: 200, description: 'User logged in' })
+  @ApiOkResponse({
+    status: 200,
+    description: 'User logged in',
+    type: UserLoginResDto,
+  })
   async userLogin(
     @Body() userLoginReqDto: UserLoginReqDto,
   ): Promise<UserLoginResDto> {
@@ -20,6 +24,10 @@ export class AuthController {
   }
 
   @Post('register')
+  @ApiCreatedResponse({
+    description: 'User registered',
+    type: UserRegisterResDto,
+  })
   async userRegister(
     @Body() userRegisterReqDto: UserRegisterReqDto,
   ): Promise<UserRegisterResDto> {

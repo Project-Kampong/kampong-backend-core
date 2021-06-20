@@ -8,7 +8,9 @@ import { AppModule } from './app.module';
 const GLOBAL_PREFIX = 'api';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    cors: true,
+  });
   app.setGlobalPrefix(GLOBAL_PREFIX);
   const configService = app.get(ConfigService);
   const port = configService.get('PORT');
@@ -23,7 +25,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
   app.listen(port, () => {
     Logger.log(
-      'Server listening on http://localhost:' + port + '/' + GLOBAL_PREFIX,
+      `Server listening on http://localhost:${port}/${GLOBAL_PREFIX} in ${process.env.NODE_ENV} mode`,
     );
   });
 }

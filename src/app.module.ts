@@ -1,10 +1,12 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
-import * as Joi from 'joi';
-import { UserModule } from './users/user.module';
-import { AuthModule } from './auth/auth.module';
 import * as mongoSanitize from 'express-mongo-sanitize';
+import * as Joi from 'joi';
+import { join } from 'path';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -24,7 +26,14 @@ import * as mongoSanitize from 'express-mongo-sanitize';
       useNewUrlParser: true,
       useUnifiedTopology: true,
     }),
-    UserModule,
+    GraphQLModule.forRoot({
+      installSubscriptionHandlers: true,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      playground: true,
+      introspection: true,
+      cors: true,
+    }),
+    UsersModule,
     AuthModule,
   ],
   controllers: [],

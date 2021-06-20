@@ -6,10 +6,15 @@ import { UpdateOrganizedEventInput } from './dto/update-organized-event.input';
 
 @Resolver(() => OrganizedEvent)
 export class OrganizedEventsResolver {
-  constructor(private readonly organizedEventsService: OrganizedEventsService) {}
+  constructor(
+    private readonly organizedEventsService: OrganizedEventsService,
+  ) {}
 
   @Mutation(() => OrganizedEvent)
-  createOrganizedEvent(@Args('createOrganizedEventInput') createOrganizedEventInput: CreateOrganizedEventInput) {
+  createOrganizedEvent(
+    @Args('createOrganizedEventInput')
+    createOrganizedEventInput: CreateOrganizedEventInput,
+  ) {
     return this.organizedEventsService.create(createOrganizedEventInput);
   }
 
@@ -24,8 +29,14 @@ export class OrganizedEventsResolver {
   }
 
   @Mutation(() => OrganizedEvent)
-  updateOrganizedEvent(@Args('updateOrganizedEventInput') updateOrganizedEventInput: UpdateOrganizedEventInput) {
-    return this.organizedEventsService.update(updateOrganizedEventInput.id, updateOrganizedEventInput);
+  updateOrganizedEvent(
+    @Args('updateOrganizedEventInput')
+    updateOrganizedEventInput: UpdateOrganizedEventInput,
+  ) {
+    return this.organizedEventsService.update(
+      updateOrganizedEventInput.id,
+      updateOrganizedEventInput,
+    );
   }
 
   @Mutation(() => OrganizedEvent)

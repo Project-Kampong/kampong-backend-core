@@ -8,9 +8,7 @@ import { AppModule } from './app.module';
 const GLOBAL_PREFIX = 'api';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
-    cors: true,
-  });
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.setGlobalPrefix(GLOBAL_PREFIX);
   const configService = app.get(ConfigService);
   const port = configService.get('PORT');

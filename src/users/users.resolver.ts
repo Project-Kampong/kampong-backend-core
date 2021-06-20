@@ -4,16 +4,16 @@ import { isEmpty } from 'lodash';
 import { User } from './schemas/user.schema';
 import { UsersService } from './users.service';
 
-@Resolver((of) => User)
+@Resolver(() => User)
 export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
-  @Query((returns) => [User], { name: 'users' })
+  @Query(() => [User], { name: 'users' })
   async list() {
     return this.usersService.list(true);
   }
 
-  @Query((returns) => User, { name: 'user' })
+  @Query(() => User, { name: 'user' })
   async findUserById(@Args('_id') userId: string) {
     const user = await this.usersService.findUserById(userId);
     if (isEmpty(user)) {
@@ -22,7 +22,7 @@ export class UsersResolver {
     return user;
   }
 
-  @Mutation((returns) => User, { name: 'deleteUser' })
+  @Mutation(() => User, { name: 'deleteUser' })
   async deleteUserById(@Args('_id') userId: string) {
     const user = await this.usersService.deleteUserById(userId);
     if (isEmpty(user)) {

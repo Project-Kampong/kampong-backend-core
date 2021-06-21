@@ -8,9 +8,9 @@ type User {
   email: String!
   password: String!
   role: String
-  is_activated: Boolean
+  isActivated: Boolean
   name: String
-  profile_picture: String
+  profilePicture: String
   gender: String
   dob: DateTime
   occupation: String
@@ -29,5 +29,15 @@ type Query {
 }
 
 type Mutation {
+  updateUser(updateUserInput: UpdateUserInput!): User!
   deleteUser(_id: String!): User!
+}
+
+input UpdateUserInput {
+  _id: String!
+  name: String
+  gender: String
+  profilePicture: String
+  dob: DateTime
+  occupation: String
 }

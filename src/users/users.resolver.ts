@@ -1,6 +1,7 @@
 import { NotFoundException } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { isEmpty } from 'lodash';
+import { UpdateUserInput } from './dto/update-user.input';
 import { User } from './schemas/user.schema';
 import { UsersService } from './users.service';
 
@@ -20,6 +21,17 @@ export class UsersResolver {
       throw new NotFoundException(`User with userId ${userId} does not exist`);
     }
     return user;
+  }
+
+  @Mutation(() => User)
+  updateUser(
+    @Args('updateUserInput')
+    updateUserInput: UpdateUserInput,
+  ) {
+    return this.usersService.updateUserById(
+      updateUserInput._id,
+      updateUserInput,
+    );
   }
 
   @Mutation(() => User, { name: 'deleteUser' })

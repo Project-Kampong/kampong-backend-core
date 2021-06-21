@@ -24,13 +24,13 @@ export class User {
   role?: string;
   @Field({ nullable: true })
   @Prop()
-  is_activated?: boolean;
+  isActivated?: boolean;
   @Field({ nullable: true })
   @Prop()
   name?: string;
   @Field({ nullable: true })
   @Prop()
-  profile_picture?: string;
+  profilePicture?: string;
   @Field({ nullable: true })
   @Prop()
   gender?: string;

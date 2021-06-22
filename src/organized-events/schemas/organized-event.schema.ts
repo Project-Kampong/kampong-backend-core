@@ -14,7 +14,7 @@ class Answer {
   @Prop()
   answerText: string;
   @Field(() => Int)
-  @Prop()
+  @Prop({ default: 0 })
   voteCount: number;
   @Field()
   createdAt: Date;
@@ -36,7 +36,7 @@ class Question {
   @Prop()
   questionText: string;
   @Field(() => Int)
-  @Prop()
+  @Prop({ default: 0 })
   voteCount: number;
   @Field(() => [Answer])
   @Prop({ type: [AnswerSchema], default: () => ({}) })
@@ -83,7 +83,7 @@ export class OrganizedEvent {
   @Prop()
   category: string;
   @Field()
-  @Prop()
+  @Prop({ default: '' })
   eventPassword: string;
   @Field()
   @Prop({ type: Boolean, default: false })

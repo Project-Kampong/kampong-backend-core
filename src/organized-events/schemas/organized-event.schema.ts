@@ -39,7 +39,7 @@ class Question {
   @Prop()
   voteCount: number;
   @Field(() => [Answer])
-  @Prop([Answer])
+  @Prop({ type: [AnswerSchema], default: () => ({}) })
   answers: Answer[];
   @Field()
   createdAt: Date;
@@ -55,7 +55,7 @@ class QnaSession {
   @Field(() => ID)
   _id: string;
   @Field(() => [Question])
-  @Prop([QuestionSchema])
+  @Prop({ type: [QuestionSchema], default: () => ({}) })
   questions: Question[];
 }
 export const QnaSessionSchema = SchemaFactory.createForClass(QnaSession);
@@ -89,7 +89,8 @@ export class OrganizedEvent {
   @Prop({ type: Boolean, default: false })
   qnaSessionOpen: boolean;
   @Field(() => QnaSession)
-  @Prop({ type: QnaSessionSchema })
+  // Apply subdocument's default values. See: https://mongoosejs.com/docs/subdocs.html
+  @Prop({ type: QnaSessionSchema, default: () => ({}) })
   qnaSession: QnaSession;
   @Field()
   createdAt: Date;

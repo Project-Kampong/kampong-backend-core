@@ -3,23 +3,20 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
 import { sign } from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 import { isEmpty } from 'lodash';
-import { User, UserDocument } from '../users/schemas/user.schema';
+import { User } from '../users/schemas/user.schema';
 import { UserLoginDto } from './dto/userLogin.dto';
 import { UserRegisterDto } from './dto/userRegister.dto';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
-  ) {}
+  constructor(private readonly usersService: UsersService) {}
 
   async userLogin(username: string, password: string): Promise<UserLoginDto> {
-    const loginUser = await this.userModel.findOne({ username }).lean().exec();
+    const loginUser = await this.usersService.findUserByUsername(username);
 
     if (isEmpty(loginUser)) {
       throw new NotFoundException('User does not exist');
@@ -42,18 +39,21 @@ export class AuthService {
     email: string,
     password: string,
   ): Promise<UserRegisterDto> {
-    const userExists = await this.userModel.exists({
-      $or: [{ username }, { email }],
-    });
+    const userExists = await this.usersService.checkUsernameOrEmailExist(
+      username,
+      email,
+    );
     if (userExists) {
       throw new BadRequestException('Email or username already exists');
     }
 
-    const newUser = await this.userModel.create({
+    const hashedPassword = await this.hashPassword(password);
+
+    const newUser = await this.usersService.createUser(
       username,
       email,
-      password: await this.hashPassword(password),
-    });
+      hashedPassword,
+    );
 
     const token = this.getSignedJwtToken(newUser);
     return {

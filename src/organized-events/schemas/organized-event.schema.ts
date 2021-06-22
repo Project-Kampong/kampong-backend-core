@@ -2,6 +2,8 @@ import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 
+export type OrganizedEventDocument = OrganizedEvent & mongoose.Document;
+
 @ObjectType()
 @Schema({ timestamps: true })
 class Answer {
@@ -39,7 +41,7 @@ class Question {
   @Prop({ default: 0 })
   voteCount: number;
   @Field(() => [Answer])
-  @Prop({ type: [AnswerSchema], default: () => ({}) })
+  @Prop({ type: [AnswerSchema] })
   answers: Answer[];
   @Field()
   createdAt: Date;
@@ -55,7 +57,7 @@ class QnaSession {
   @Field(() => ID)
   _id: string;
   @Field(() => [Question])
-  @Prop({ type: [QuestionSchema], default: () => ({}) })
+  @Prop({ type: [QuestionSchema] })
   questions: Question[];
 }
 export const QnaSessionSchema = SchemaFactory.createForClass(QnaSession);

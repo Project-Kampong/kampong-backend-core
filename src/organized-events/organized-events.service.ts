@@ -1,26 +1,48 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateOrganizedEventInput } from './dto/create-organized-event.input';
 import { UpdateOrganizedEventInput } from './dto/update-organized-event.input';
+import {
+  OrganizedEvent,
+  OrganizedEventDocument,
+} from './schemas/organized-event.schema';
 
 @Injectable()
 export class OrganizedEventsService {
+  constructor(
+    @InjectModel(OrganizedEvent.name)
+    private readonly organizedEventModel: Model<OrganizedEventDocument>,
+  ) {}
   create(createOrganizedEventInput: CreateOrganizedEventInput) {
-    return 'This action adds a new organizedEvent';
+    return this.organizedEventModel.create(createOrganizedEventInput);
   }
 
   findAll() {
-    return `This action returns all organizedEvents`;
+    return this.organizedEventModel.find().lean().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} organizedEvent`;
+  findOne(organizedEventId: string) {
+    return this.organizedEventModel.findById(organizedEventId).lean().exec();
   }
 
-  update(id: number, updateOrganizedEventInput: UpdateOrganizedEventInput) {
-    return `This action updates a #${id} organizedEvent`;
+  update(
+    organizedEventId: string,
+    updateOrganizedEventInput: UpdateOrganizedEventInput,
+  ) {
+    return this.organizedEventModel
+      .findByIdAndUpdate(organizedEventId, updateOrganizedEventInput, {
+        new: true,
+        runValidators: true,
+      })
+      .lean()
+      .exec();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} organizedEvent`;
+  remove(organizedEventId: string) {
+    return this.organizedEventModel
+      .findByIdAndDelete(organizedEventId)
+      .lean()
+      .exec();
   }
 }

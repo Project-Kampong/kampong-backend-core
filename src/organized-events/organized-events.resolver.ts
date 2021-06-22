@@ -24,8 +24,8 @@ export class OrganizedEventsResolver {
   }
 
   @Query(() => OrganizedEvent, { name: 'organizedEvent' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.organizedEventsService.findOne(id);
+  findOne(@Args('_id', { type: () => Int }) organizedEventId: string) {
+    return this.organizedEventsService.findOne(organizedEventId);
   }
 
   @Mutation(() => OrganizedEvent)
@@ -34,13 +34,15 @@ export class OrganizedEventsResolver {
     updateOrganizedEventInput: UpdateOrganizedEventInput,
   ) {
     return this.organizedEventsService.update(
-      updateOrganizedEventInput.id,
+      updateOrganizedEventInput._id,
       updateOrganizedEventInput,
     );
   }
 
   @Mutation(() => OrganizedEvent)
-  removeOrganizedEvent(@Args('id', { type: () => Int }) id: number) {
-    return this.organizedEventsService.remove(id);
+  removeOrganizedEvent(
+    @Args('_id', { type: () => Int }) organizedEventId: string,
+  ) {
+    return this.organizedEventsService.remove(organizedEventId);
   }
 }

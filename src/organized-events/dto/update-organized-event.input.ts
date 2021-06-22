@@ -1,10 +1,10 @@
 import { CreateOrganizedEventInput } from './create-organized-event.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { Field, ID, InputType, PartialType } from '@nestjs/graphql';
 
 @InputType()
 export class UpdateOrganizedEventInput extends PartialType(
   CreateOrganizedEventInput,
 ) {
-  @Field(() => Int)
-  id: number;
+  @Field(() => ID)
+  _id: string;
 }

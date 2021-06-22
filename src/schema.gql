@@ -51,7 +51,7 @@ type OrganizedEvent {
   _id: ID!
   eventName: String!
   startDate: DateTime!
-  endDate: DateTime!
+  endDate: DateTime
   description: String!
 
   """Organizer's user ID"""
@@ -68,7 +68,7 @@ type Query {
   users: [User!]!
   user(_id: String!): User!
   organizedEvents: [OrganizedEvent!]!
-  organizedEvent(id: Int!): OrganizedEvent!
+  organizedEvent(_id: Int!): OrganizedEvent!
 }
 
 type Mutation {
@@ -76,18 +76,7 @@ type Mutation {
   deleteUser(_id: String!): User!
   createOrganizedEvent(createOrganizedEventInput: CreateOrganizedEventInput!): OrganizedEvent!
   updateOrganizedEvent(updateOrganizedEventInput: UpdateOrganizedEventInput!): OrganizedEvent!
-  removeOrganizedEvent(id: Int!): OrganizedEvent!
-}
-
-input CreateOrganizedEventInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-input UpdateOrganizedEventInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  removeOrganizedEvent(_id: Int!): OrganizedEvent!
 }
 
 input UpdateUserInput {
@@ -97,4 +86,27 @@ input UpdateUserInput {
   profilePicture: String
   dob: DateTime
   occupation: String
+}
+
+input CreateOrganizedEventInput {
+  eventName: String!
+  startDate: DateTime!
+  endDate: DateTime
+  description: String!
+
+  """Organizer's user ID"""
+  organizerId: ID!
+  category: String!
+}
+
+input UpdateOrganizedEventInput {
+  eventName: String
+  startDate: DateTime
+  endDate: DateTime
+  description: String
+
+  """Organizer's user ID"""
+  organizerId: ID
+  category: String
+  _id: ID!
 }

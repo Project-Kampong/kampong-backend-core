@@ -1,13 +1,25 @@
 import { NotFoundException } from '@nestjs/common';
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { isEmpty } from 'lodash';
+import { OrganizedEventsService } from 'src/organized-events/organized-events.service';
+import { OrganizedEvent } from 'src/organized-events/schemas/organized-event.schema';
 import { UpdateUserInput } from './dto/update-user.input';
 import { User } from './schemas/user.schema';
 import { UsersService } from './users.service';
 
 @Resolver(() => User)
 export class UsersResolver {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly organizedEventsService: OrganizedEventsService,
+    private readonly usersService: UsersService,
+  ) {}
 
   @Query(() => [User], { name: 'users' })
   async list() {
@@ -21,6 +33,11 @@ export class UsersResolver {
       throw new NotFoundException(`User with userId ${userId} does not exist`);
     }
     return user;
+  }
+
+  @ResolveField('events', () => [OrganizedEvent])
+  async findEventsByUserId(@Parent() user: User) {
+    return this.organizedEventsService.findEventsByUserId(user._id);
   }
 
   @Mutation(() => User)

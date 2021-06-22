@@ -14,5 +14,6 @@ import {
     ]),
   ],
   providers: [OrganizedEventsResolver, OrganizedEventsService],
+  exports: [OrganizedEventsService],
 })
 export class OrganizedEventsModule {}

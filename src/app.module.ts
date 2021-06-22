@@ -7,6 +7,7 @@ import * as Joi from 'joi';
 import { join } from 'path';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { OrganizedEventsModule } from './organized-events/organized-events.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { AuthModule } from './auth/auth.module';
     }),
     UsersModule,
     AuthModule,
+    OrganizedEventsModule,
   ],
   controllers: [],
   providers: [],

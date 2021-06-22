@@ -8,9 +8,9 @@ type User {
   email: String!
   password: String!
   role: String
-  is_activated: Boolean
+  isActivated: Boolean
   name: String
-  profile_picture: String
+  profilePicture: String
   gender: String
   dob: DateTime
   occupation: String
@@ -72,6 +72,7 @@ type Query {
 }
 
 type Mutation {
+  updateUser(updateUserInput: UpdateUserInput!): User!
   deleteUser(_id: String!): User!
   createOrganizedEvent(createOrganizedEventInput: CreateOrganizedEventInput!): OrganizedEvent!
   updateOrganizedEvent(updateOrganizedEventInput: UpdateOrganizedEventInput!): OrganizedEvent!
@@ -87,4 +88,13 @@ input UpdateOrganizedEventInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Int!
+}
+
+input UpdateUserInput {
+  _id: String!
+  name: String
+  gender: String
+  profilePicture: String
+  dob: DateTime
+  occupation: String
 }

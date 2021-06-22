@@ -22,6 +22,8 @@ class Answer {
   updatedAt: Date;
 }
 
+export const AnswerSchema = SchemaFactory.createForClass(Answer);
+
 @ObjectType()
 @Schema({ timestamps: true })
 class Question {
@@ -45,16 +47,18 @@ class Question {
   updatedAt: Date;
 }
 
+export const QuestionSchema = SchemaFactory.createForClass(Question);
+
 @ObjectType()
 @Schema()
 class QnaSession {
   @Field(() => ID)
   _id: string;
   @Field(() => [Question])
-  @Prop([Question])
+  @Prop([QuestionSchema])
   questions: Question[];
 }
-
+export const QnaSessionSchema = SchemaFactory.createForClass(QnaSession);
 @ObjectType()
 @Schema({ timestamps: true })
 export class OrganizedEvent {
@@ -66,9 +70,9 @@ export class OrganizedEvent {
   @Field()
   @Prop()
   startDate: Date;
-  @Field()
+  @Field({ nullable: true })
   @Prop()
-  endDate: Date;
+  endDate?: Date;
   @Field()
   @Prop()
   description: string;
@@ -82,10 +86,10 @@ export class OrganizedEvent {
   @Prop()
   eventPassword: string;
   @Field()
-  @Prop()
+  @Prop({ type: Boolean, default: false })
   qnaSessionOpen: boolean;
   @Field(() => QnaSession)
-  @Prop()
+  @Prop({ type: QnaSessionSchema })
   qnaSession: QnaSession;
   @Field()
   createdAt: Date;
@@ -93,8 +97,5 @@ export class OrganizedEvent {
   updatedAt: Date;
 }
 
-export const QuestionSchema = SchemaFactory.createForClass(Question);
-export const AnswerSchema = SchemaFactory.createForClass(Answer);
-export const QnaSessionSchema = SchemaFactory.createForClass(QnaSession);
 export const OrganizedEventSchema =
   SchemaFactory.createForClass(OrganizedEvent);

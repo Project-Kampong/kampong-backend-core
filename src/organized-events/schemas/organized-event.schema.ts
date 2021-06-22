@@ -89,7 +89,7 @@ export class OrganizedEvent {
   @Prop({ type: Boolean, default: false })
   qnaSessionOpen: boolean;
   @Field(() => QnaSession)
-  // Apply subdocument's default values. See: https://mongoosejs.com/docs/subdocs.html
+  // Apply QnaSessionSchema subdocument default values. See: https://mongoosejs.com/docs/subdocs.html
   @Prop({ type: QnaSessionSchema, default: () => ({}) })
   qnaSession: QnaSession;
   @Field()

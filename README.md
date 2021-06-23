@@ -3,6 +3,12 @@
  <h2 align="center">Kampong Core Backend</h2>
  <p align="center"> Core Backend in NestJS and MongoDB for Project Kampong.</p>
 </p>
+<p align="center">
+    <img alt="Build Passing" src="https://github.com/Project-Kampong/kampong-backend-core/actions/workflows/build.yaml/badge.svg" />
+    <img alt="CodeQL Passing" src="https://github.com/Project-Kampong/kampong-backend-core/actions/workflows/codeql-analysis.yml/badge.svg" />
+    <a href="https://lgtm.com/projects/g/Project-Kampong/kampong-backend-core/alerts/"><img alt="Total alerts" src="https://img.shields.io/lgtm/alerts/g/Project-Kampong/kampong-backend-core.svg?logo=lgtm&logoWidth=18"/></a>
+    <a href="https://lgtm.com/projects/g/Project-Kampong/kampong-backend-core/context:javascript"><img alt="Language grade: JavaScript" src="https://img.shields.io/lgtm/grade/javascript/g/Project-Kampong/kampong-backend-core.svg?logo=lgtm&logoWidth=18"/></a>
+</p>
 
 ## Quick Start
 

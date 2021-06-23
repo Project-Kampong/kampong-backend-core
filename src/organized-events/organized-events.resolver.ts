@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int, ID } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';
 import { OrganizedEventsService } from './organized-events.service';
 import { OrganizedEvent } from './schemas/organized-event.schema';
 import { CreateOrganizedEventInput } from './dto/create-organized-event.input';

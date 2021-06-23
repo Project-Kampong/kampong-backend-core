@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';
 import { OrganizedEventsService } from './organized-events.service';
 import { OrganizedEvent } from './schemas/organized-event.schema';
 import { CreateOrganizedEventInput } from './dto/create-organized-event.input';
@@ -24,7 +24,7 @@ export class OrganizedEventsResolver {
   }
 
   @Query(() => OrganizedEvent, { name: 'organizedEvent' })
-  findOne(@Args('_id', { type: () => Int }) organizedEventId: string) {
+  findOne(@Args('_id', { type: () => ID }) organizedEventId: string) {
     return this.organizedEventsService.findOne(organizedEventId);
   }
 
@@ -41,7 +41,7 @@ export class OrganizedEventsResolver {
 
   @Mutation(() => OrganizedEvent)
   removeOrganizedEvent(
-    @Args('_id', { type: () => Int }) organizedEventId: string,
+    @Args('_id', { type: () => ID }) organizedEventId: string,
   ) {
     return this.organizedEventsService.remove(organizedEventId);
   }

@@ -2,7 +2,7 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
-import * as mongoSanitize from 'express-mongo-sanitize';
+import mongoSanitize from 'express-mongo-sanitize';
 import * as Joi from 'joi';
 import { join } from 'path';
 import { UsersModule } from './users/users.module';

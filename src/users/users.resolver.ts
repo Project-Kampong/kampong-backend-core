@@ -1,6 +1,7 @@
 import { NotFoundException } from '@nestjs/common';
 import {
   Args,
+  ID,
   Mutation,
   Parent,
   Query,
@@ -27,7 +28,7 @@ export class UsersResolver {
   }
 
   @Query(() => User, { name: 'user' })
-  async findUserById(@Args('_id') userId: string) {
+  async findUserById(@Args('_id', { type: () => ID }) userId: string) {
     const user = await this.usersService.findUserById(userId);
     if (isEmpty(user)) {
       throw new NotFoundException(`User with userId ${userId} does not exist`);
@@ -52,7 +53,7 @@ export class UsersResolver {
   }
 
   @Mutation(() => User, { name: 'deleteUser' })
-  async deleteUserById(@Args('_id') userId: string) {
+  async deleteUserById(@Args('_id', { type: () => ID }) userId: string) {
     const user = await this.usersService.deleteUserById(userId);
     if (isEmpty(user)) {
       throw new NotFoundException(`User with userId ${userId} does not exist`);

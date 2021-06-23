@@ -16,6 +16,7 @@ type User {
   occupation: String
   createdAt: DateTime!
   updatedAt: DateTime!
+  events: [OrganizedEvent!]!
 }
 
 """

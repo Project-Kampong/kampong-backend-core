@@ -22,6 +22,10 @@ export class OrganizedEventsService {
     return this.organizedEventModel.find().lean().exec();
   }
 
+  findEventsByUserId(userId: string) {
+    return this.organizedEventModel.find({ organizerId: userId }).lean().exec();
+  }
+
   findOne(organizedEventId: string) {
     return this.organizedEventModel.findById(organizedEventId).lean().exec();
   }

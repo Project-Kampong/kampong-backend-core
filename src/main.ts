@@ -19,6 +19,7 @@ async function bootstrap() {
     .setTitle('Kampong Core Backend')
     .setDescription('API for Kampong Core Backend')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, options);

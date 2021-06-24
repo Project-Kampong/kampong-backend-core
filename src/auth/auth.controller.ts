@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
@@ -9,12 +10,14 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import {
+  ApiBearerAuth,
   ApiBody,
   ApiCreatedResponse,
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
 import { Request as ExpressRequest } from 'express';
+import { User } from 'src/users/schemas/user.schema';
 import AuthService from './auth.service';
 import { UserLoginReqDto, UserLoginResDto } from './dto/userLogin.dto';
 import { UserRegisterReqDto, UserRegisterResDto } from './dto/userRegister.dto';
@@ -33,9 +36,9 @@ export class AuthController {
     type: UserLoginResDto,
   })
   async userLogin(
-    @Request() req: ExpressRequest & { user: UserLoginResDto },
+    @Request() req: ExpressRequest & { user: User },
   ): Promise<UserLoginResDto> {
-    return req.user;
+    return this.authService.login(req.user);
   }
 
   @Post('register')
@@ -51,5 +54,15 @@ export class AuthController {
       userRegisterReqDto.email,
       userRegisterReqDto.password,
     );
+  }
+
+  @Get('me')
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
+  async getMe(
+    @Request()
+    req: ExpressRequest & { user: { username: string; password: string } },
+  ) {
+    return req.user;
   }
 }

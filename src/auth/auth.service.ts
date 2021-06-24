@@ -3,9 +3,9 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import { isEmpty } from 'lodash';
 import { User } from '../users/schemas/user.schema';
-import { UserLoginDto } from './dto/userLogin.dto';
 import { UserRegisterDto } from './dto/userRegister.dto';
 import { UsersService } from 'src/users/users.service';
+import { UserLoginDto } from './dto/userLogin.dto';
 
 @Injectable()
 export class AuthService {
@@ -14,10 +14,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async validateUser(
-    username: string,
-    password: string,
-  ): Promise<UserLoginDto> {
+  async authenticateUser(username: string, password: string): Promise<User> {
     const loginUser = await this.usersService.findUserByUsername(username);
 
     const isValidUsernameAndPassword =
@@ -26,6 +23,10 @@ export class AuthService {
     if (!isValidUsernameAndPassword) {
       throw new BadRequestException('Username or password is incorrect');
     }
+    return loginUser;
+  }
+
+  login(loginUser: User): UserLoginDto {
     const token = this.getSignedJwtToken(loginUser);
     return {
       userId: loginUser._id,
@@ -66,7 +67,7 @@ export class AuthService {
   }
 
   private getSignedJwtToken(loginUser: User) {
-    const payload = { userId: loginUser._id, userEmail: loginUser.email };
+    const payload = { userId: loginUser._id, username: loginUser.username };
     return this.jwtService.sign(payload);
   }
 

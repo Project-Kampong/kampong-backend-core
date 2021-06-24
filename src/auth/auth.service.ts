@@ -6,6 +6,7 @@ import { User } from '../users/schemas/user.schema';
 import { UserRegisterDto } from './dto/userRegister.dto';
 import { UsersService } from 'src/users/users.service';
 import { UserLoginDto } from './dto/userLogin.dto';
+import { JwtPayload } from './jwt.strategy';
 
 @Injectable()
 export class AuthService {
@@ -67,11 +68,14 @@ export class AuthService {
   }
 
   private getSignedJwtToken(loginUser: User) {
-    const payload = { userId: loginUser._id, username: loginUser.username };
+    const payload: JwtPayload = {
+      userId: loginUser._id,
+      username: loginUser.username,
+    };
     return this.jwtService.sign(payload);
   }
 
-  private async hashPassword(password) {
+  private async hashPassword(password: string) {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = bcrypt.hash(password, salt);
     return hashedPassword;
@@ -81,5 +85,3 @@ export class AuthService {
     return bcrypt.compare(inputPassword, originalPassword);
   }
 }
-
-export default AuthService;

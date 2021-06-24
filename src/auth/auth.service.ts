@@ -36,7 +36,7 @@ export class AuthService {
     };
   }
 
-  async userRegister(
+  async register(
     username: string,
     email: string,
     password: string,

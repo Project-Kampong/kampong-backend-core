@@ -49,7 +49,7 @@ export class AuthController {
   async userRegister(
     @Body() userRegisterReqDto: UserRegisterReqDto,
   ): Promise<UserRegisterResDto> {
-    return this.authService.userRegister(
+    return this.authService.register(
       userRegisterReqDto.username,
       userRegisterReqDto.email,
       userRegisterReqDto.password,

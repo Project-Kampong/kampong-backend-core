@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { sign } from 'jsonwebtoken';
+import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import { isEmpty } from 'lodash';
 import { User } from '../users/schemas/user.schema';
@@ -9,7 +9,10 @@ import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly jwtService: JwtService,
+  ) {}
 
   async validateUser(
     username: string,
@@ -63,13 +66,8 @@ export class AuthService {
   }
 
   private getSignedJwtToken(loginUser: User) {
-    return sign(
-      { userId: loginUser._id, userEmail: loginUser.email },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: process.env.JWT_EXPIRE,
-      },
-    );
+    const payload = { userId: loginUser._id, userEmail: loginUser.email };
+    return this.jwtService.sign(payload);
   }
 
   private async hashPassword(password) {

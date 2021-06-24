@@ -18,7 +18,7 @@ export class AuthController {
   async userLogin(
     @Body() userLoginReqDto: UserLoginReqDto,
   ): Promise<UserLoginResDto> {
-    return this.authService.userLogin(
+    return this.authService.validateUser(
       userLoginReqDto.username,
       userLoginReqDto.password,
     );

@@ -15,7 +15,10 @@ import { UsersService } from 'src/users/users.service';
 export class AuthService {
   constructor(private readonly usersService: UsersService) {}
 
-  async userLogin(username: string, password: string): Promise<UserLoginDto> {
+  async validateUser(
+    username: string,
+    password: string,
+  ): Promise<UserLoginDto> {
     const loginUser = await this.usersService.findUserByUsername(username);
 
     if (isEmpty(loginUser)) {

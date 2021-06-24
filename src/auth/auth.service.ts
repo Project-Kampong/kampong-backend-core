@@ -1,8 +1,4 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { sign } from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 import { isEmpty } from 'lodash';

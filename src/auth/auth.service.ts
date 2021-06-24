@@ -21,12 +21,11 @@ export class AuthService {
   ): Promise<UserLoginDto> {
     const loginUser = await this.usersService.findUserByUsername(username);
 
-    if (isEmpty(loginUser)) {
-      throw new NotFoundException('User does not exist');
-    }
-    const isEqual = await this.checkPassword(password, loginUser.password);
-    if (!isEqual) {
-      throw new BadRequestException('Password is incorrect');
+    const isValidUsernameAndPassword =
+      !isEmpty(loginUser) &&
+      (await this.checkPassword(password, loginUser.password));
+    if (!isValidUsernameAndPassword) {
+      throw new BadRequestException('Username or password is incorrect');
     }
     const token = this.getSignedJwtToken(loginUser);
     return {

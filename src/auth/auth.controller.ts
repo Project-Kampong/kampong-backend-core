@@ -1,5 +1,20 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import {
+  ApiBody,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { Request as ExpressRequest } from 'express';
 import AuthService from './auth.service';
 import { UserLoginReqDto, UserLoginResDto } from './dto/userLogin.dto';
 import { UserRegisterReqDto, UserRegisterResDto } from './dto/userRegister.dto';
@@ -9,19 +24,18 @@ import { UserRegisterReqDto, UserRegisterResDto } from './dto/userRegister.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
   @Post('login')
+  @UseGuards(AuthGuard('local'))
   @HttpCode(HttpStatus.OK)
+  @ApiBody({ type: UserLoginReqDto })
   @ApiOkResponse({
     status: 200,
     description: 'User logged in',
     type: UserLoginResDto,
   })
   async userLogin(
-    @Body() userLoginReqDto: UserLoginReqDto,
+    @Request() req: ExpressRequest & { user: UserLoginResDto },
   ): Promise<UserLoginResDto> {
-    return this.authService.validateUser(
-      userLoginReqDto.username,
-      userLoginReqDto.password,
-    );
+    return req.user;
   }
 
   @Post('register')

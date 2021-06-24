@@ -1,10 +1,12 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class JwtPayload {
+  @ApiProperty()
   userId: string;
-
+  @ApiProperty()
   username: string;
 }
 @Injectable()

@@ -21,6 +21,7 @@ import { User } from 'src/users/schemas/user.schema';
 import { AuthService } from './auth.service';
 import { UserLoginReqDto, UserLoginResDto } from './dto/userLogin.dto';
 import { UserRegisterReqDto, UserRegisterResDto } from './dto/userRegister.dto';
+import { JwtPayload } from './jwt.strategy';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -57,11 +58,16 @@ export class AuthController {
   }
 
   @Get('me')
-  @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
+  @ApiOkResponse({
+    status: 200,
+    description: 'Decoded JWT payload: User ID and username',
+    type: JwtPayload,
+  })
   async getMe(
     @Request()
-    req: ExpressRequest & { user: { username: string; password: string } },
+    req: ExpressRequest & { user: JwtPayload },
   ) {
     return req.user;
   }

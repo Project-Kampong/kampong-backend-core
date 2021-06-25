@@ -14,6 +14,6 @@ import {
     ]),
   ],
   providers: [OrganizedEventsResolver, OrganizedEventsService],
-  exports: [OrganizedEventsService],
+  exports: [MongooseModule, OrganizedEventsService],
 })
 export class OrganizedEventsModule {}

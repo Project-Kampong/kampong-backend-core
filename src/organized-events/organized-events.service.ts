@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import generatePassword from 'omgopass';
 import { CreateOrganizedEventInput } from './dto/create-organized-event.input';
 import { UpdateOrganizedEventInput } from './dto/update-organized-event.input';
 import {
@@ -15,7 +16,16 @@ export class OrganizedEventsService {
     private readonly organizedEventModel: Model<OrganizedEventDocument>,
   ) {}
   create(createOrganizedEventInput: CreateOrganizedEventInput) {
-    return this.organizedEventModel.create(createOrganizedEventInput);
+    const createFields: CreateOrganizedEventInput & { eventPassword: string } =
+      {
+        ...createOrganizedEventInput,
+        eventPassword: generatePassword({
+          syllablesCount: 3,
+          hasNumbers: false,
+          titlecased: false,
+        }),
+      };
+    return this.organizedEventModel.create(createFields);
   }
 
   findAll() {

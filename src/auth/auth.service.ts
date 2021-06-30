@@ -1,33 +1,33 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { sign } from 'jsonwebtoken';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import { isEmpty } from 'lodash';
-import { User, UserDocument } from '../users/schemas/user.schema';
-import { UserLoginDto } from './dto/userLogin.dto';
+import { User } from '../users/schemas/user.schema';
 import { UserRegisterDto } from './dto/userRegister.dto';
+import { UsersService } from 'src/users/users.service';
+import { UserLoginDto } from './dto/userLogin.dto';
+import { JwtPayload } from './jwt.strategy';
 
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
+    private readonly usersService: UsersService,
+    private readonly jwtService: JwtService,
   ) {}
 
-  async userLogin(username: string, password: string): Promise<UserLoginDto> {
-    const loginUser = await this.userModel.findOne({ username }).lean().exec();
+  async authenticateUser(username: string, password: string): Promise<User> {
+    const loginUser = await this.usersService.findUserByUsername(username);
 
-    if (isEmpty(loginUser)) {
-      throw new NotFoundException('User does not exist');
+    const isValidUsernameAndPassword =
+      !isEmpty(loginUser) &&
+      (await this.checkPassword(password, loginUser.password));
+    if (!isValidUsernameAndPassword) {
+      throw new BadRequestException('Username or password is incorrect');
     }
-    const isEqual = await this.checkPassword(password, loginUser.password);
-    if (!isEqual) {
-      throw new BadRequestException('Password is incorrect');
-    }
+    return loginUser;
+  }
+
+  login(loginUser: User): UserLoginDto {
     const token = this.getSignedJwtToken(loginUser);
     return {
       userId: loginUser._id,
@@ -37,23 +37,26 @@ export class AuthService {
     };
   }
 
-  async userRegister(
+  async register(
     username: string,
     email: string,
     password: string,
   ): Promise<UserRegisterDto> {
-    const userExists = await this.userModel.exists({
-      $or: [{ username }, { email }],
-    });
+    const userExists = await this.usersService.checkUsernameOrEmailExist(
+      username,
+      email,
+    );
     if (userExists) {
       throw new BadRequestException('Email or username already exists');
     }
 
-    const newUser = await this.userModel.create({
+    const hashedPassword = await this.hashPassword(password);
+
+    const newUser = await this.usersService.createUser(
       username,
       email,
-      password: await this.hashPassword(password),
-    });
+      hashedPassword,
+    );
 
     const token = this.getSignedJwtToken(newUser);
     return {
@@ -65,16 +68,14 @@ export class AuthService {
   }
 
   private getSignedJwtToken(loginUser: User) {
-    return sign(
-      { userId: loginUser._id, userEmail: loginUser.email },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: process.env.JWT_EXPIRE,
-      },
-    );
+    const payload: JwtPayload = {
+      userId: loginUser._id,
+      username: loginUser.username,
+    };
+    return this.jwtService.sign(payload);
   }
 
-  private async hashPassword(password) {
+  private async hashPassword(password: string) {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = bcrypt.hash(password, salt);
     return hashedPassword;
@@ -84,5 +85,3 @@ export class AuthService {
     return bcrypt.compare(inputPassword, originalPassword);
   }
 }
-
-export default AuthService;

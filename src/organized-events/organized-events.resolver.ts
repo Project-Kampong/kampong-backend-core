@@ -1,4 +1,6 @@
+import { UseGuards } from '@nestjs/common';
 import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';
+import { AuthGuard } from '@nestjs/passport';
 import { OrganizedEventsService } from './organized-events.service';
 import { OrganizedEvent } from './schemas/organized-event.schema';
 import { CreateOrganizedEventInput } from './dto/create-organized-event.input';
@@ -11,6 +13,7 @@ export class OrganizedEventsResolver {
   ) {}
 
   @Mutation(() => OrganizedEvent)
+  @UseGuards(AuthGuard('jwt'))
   createOrganizedEvent(
     @Args('createOrganizedEventInput')
     createOrganizedEventInput: CreateOrganizedEventInput,

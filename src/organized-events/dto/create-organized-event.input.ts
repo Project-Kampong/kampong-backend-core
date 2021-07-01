@@ -1,5 +1,5 @@
-import { InputType, Field, ID } from '@nestjs/graphql';
-import { IsDateString, IsMongoId, IsNotEmpty } from 'class-validator';
+import { InputType, Field } from '@nestjs/graphql';
+import { IsDate, IsNotEmpty, IsOptional } from 'class-validator';
 
 @InputType()
 export class CreateOrganizedEventInput {
@@ -7,15 +7,14 @@ export class CreateOrganizedEventInput {
   @IsNotEmpty()
   eventName: string;
   @Field({ description: 'Start date in ISO8601 date string format' })
-  @IsDateString()
+  @IsDate()
   startDate: Date;
   @Field({ nullable: true })
+  @IsOptional()
+  @IsDate()
   endDate?: Date;
   @Field()
   description: string;
-  @Field(() => ID, { description: `Organizer's user ID` })
-  @IsMongoId()
-  organizerId: string;
   @Field()
   category: string;
 }

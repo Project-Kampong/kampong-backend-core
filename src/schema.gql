@@ -96,9 +96,6 @@ input CreateOrganizedEventInput {
   startDate: DateTime!
   endDate: DateTime
   description: String!
-
-  """Organizer's user ID"""
-  organizerId: ID!
   category: String!
 }
 
@@ -109,9 +106,6 @@ input UpdateOrganizedEventInput {
   startDate: DateTime
   endDate: DateTime
   description: String
-
-  """Organizer's user ID"""
-  organizerId: ID
   category: String
   _id: ID!
 }

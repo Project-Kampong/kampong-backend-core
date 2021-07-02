@@ -55,7 +55,9 @@ type OrganizedEvent {
   endDate: DateTime
   description: String!
 
-  """Organizer's user ID"""
+  """
+  Organizer's user ID
+  """
   organizerId: ID!
   category: String!
   eventPassword: String!
@@ -75,10 +77,17 @@ type Query {
 type Mutation {
   updateUser(updateUserInput: UpdateUserInput!): User!
   deleteUser(_id: ID!): User!
-  createOrganizedEvent(createOrganizedEventInput: CreateOrganizedEventInput!): OrganizedEvent!
-  updateOrganizedEvent(updateOrganizedEventInput: UpdateOrganizedEventInput!): OrganizedEvent!
+  createOrganizedEvent(
+    createOrganizedEventInput: CreateOrganizedEventInput!
+  ): OrganizedEvent!
+  updateOrganizedEvent(
+    updateOrganizedEventInput: UpdateOrganizedEventInput!
+  ): OrganizedEvent!
   removeOrganizedEvent(_id: ID!): OrganizedEvent!
-  createQuestion(createQuestionInput: CreateQuestionInput!, organizedEventId: ID!): [Question!]!
+  createQuestion(
+    createQuestionInput: CreateQuestionInput!
+    organizedEventId: ID!
+  ): [Question!]!
   updateQuestion(updateQuestionInput: UpdateQuestionInput!): Question!
   removeQuestion(_id: ID!): Question!
 }
@@ -94,23 +103,25 @@ input UpdateUserInput {
 
 input CreateOrganizedEventInput {
   eventName: String!
+
+  """
+  Start date in ISO8601 date string format
+  """
   startDate: DateTime!
   endDate: DateTime
   description: String!
-
-  """Organizer's user ID"""
-  organizerId: ID!
   category: String!
 }
 
 input UpdateOrganizedEventInput {
   eventName: String
+
+  """
+  Start date in ISO8601 date string format
+  """
   startDate: DateTime
   endDate: DateTime
   description: String
-
-  """Organizer's user ID"""
-  organizerId: ID
   category: String
   _id: ID!
 }

@@ -1,17 +1,20 @@
-import { InputType, Field, ID } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
+import { IsDate, IsNotEmpty, IsOptional } from 'class-validator';
 
 @InputType()
 export class CreateOrganizedEventInput {
   @Field(() => String)
+  @IsNotEmpty()
   eventName: string;
-  @Field()
+  @Field({ description: 'Start date in ISO8601 date string format' })
+  @IsDate()
   startDate: Date;
   @Field({ nullable: true })
+  @IsOptional()
+  @IsDate()
   endDate?: Date;
   @Field()
   description: string;
-  @Field(() => ID, { description: `Organizer's user ID` })
-  organizerId: string;
   @Field()
   category: string;
 }

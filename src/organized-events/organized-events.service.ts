@@ -14,8 +14,14 @@ export class OrganizedEventsService {
     @InjectModel(OrganizedEvent.name)
     private readonly organizedEventModel: Model<OrganizedEventDocument>,
   ) {}
-  create(createOrganizedEventInput: CreateOrganizedEventInput) {
-    return this.organizedEventModel.create(createOrganizedEventInput);
+  create(
+    organizerId: string,
+    createOrganizedEventInput: CreateOrganizedEventInput,
+  ) {
+    return this.organizedEventModel.create({
+      organizerId,
+      ...createOrganizedEventInput,
+    });
   }
 
   findAll() {

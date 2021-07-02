@@ -21,6 +21,24 @@ export class UsersService {
     return this.userModel.findById(userId).lean().exec();
   }
 
+  async findUserByUsername(username: string) {
+    return this.userModel.findOne({ username }).lean().exec();
+  }
+
+  async checkUsernameOrEmailExist(username: string, email: string) {
+    return this.userModel.exists({
+      $or: [{ username }, { email }],
+    });
+  }
+
+  async createUser(username, email, password) {
+    return this.userModel.create({
+      username,
+      email,
+      password,
+    });
+  }
+
   async updateUserById(userId: string, updateBody: UpdateUserInput) {
     return this.userModel
       .findByIdAndUpdate(userId, updateBody, { new: true, runValidators: true })

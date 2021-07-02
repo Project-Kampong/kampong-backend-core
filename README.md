@@ -79,11 +79,13 @@ To run the app with the Docker instead:
 
 1. Ensure you have Docker installed on your machine
 2. Ensure `config/config.env` is set up properly in your local repo.
-3. Then run the commands below:
-
-```bash
-# Build docker image locally
-docker build . -t kampong-backend-core:latest
-# Run docker image locally. Set port according to value of PORT in config/config.env
-docker run -p 5000:5000 --env-file config/config.env --rm kampong-backend-core:latest
-```
+3. Then
+   A. Run `docker-compose up`
+   OR
+   B. Run the following commands:
+   ```bash
+    # Build docker image locally
+    $ docker build . -t kampong-backend-core:latest
+    # Run docker image locally. Set port according to the value of PORT in config/config.env
+    $ docker run -p 5000:5000 --env-file config/config.env --rm kampong-backend-core:latest
+   ```

@@ -37,11 +37,11 @@ There are 2 ways to run the app
 1. [Manual installation](#manual-installation) (for development)
 2. [Run with Docker](#run-with-docker) (for quick setup and run)
 
-#### Manual installation
+### Manual installation
 
 Recommended for development.
 
-##### Global dependencies
+#### Global dependencies
 
 App requires the following dependencies to be installed locally (in the following order):
 
@@ -52,13 +52,13 @@ App requires the following dependencies to be installed locally (in the followin
 
 > **NB**: NestJS installation is recommended for dev. It is not required to run the app.
 
-##### Installation
+#### Installation
 
 ```bash
 $ npm install
 ```
 
-##### Running the app
+#### Running the app
 
 ```bash
 # development watch mode
@@ -68,7 +68,7 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-##### Test
+#### Test
 
 ```bash
 # unit tests

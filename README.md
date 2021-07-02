@@ -80,7 +80,7 @@ To run the app with the Docker instead:
 1. Ensure you have Docker installed on your machine
 2. Ensure `config/config.env` is set up properly in your local repo.
 3. Then
-   A. Run `docker-compose up`
+   A. Run `docker compose up`
    OR
    B. Run the following commands:
    ```bash

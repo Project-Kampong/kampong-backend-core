@@ -12,17 +12,6 @@
 
 ## Quick Start
 
-### Global dependencies
-
-App requires the following dependencies to be installed locally (in the following order):
-
-| No  | Dependency           | Installation Instruction                                                                                   |
-| --- | -------------------- | ---------------------------------------------------------------------------------------------------------- |
-| 1   | NodeJS v16 (via nvm) | Install nvm: https://github.com/nvm-sh/nvm <br /> Run `nvm install && nvm use` <br /> To verify: `node -v` |
-| 2   | NestJS 7 (Optional)  | Install NestJS CLI: https://docs.nestjs.com <br /> To verify: `nest -v`                                    |
-
-> **NB**: NestJS installation is recommended for dev. It is not required to run the app.
-
 ### Setting up database
 
 Refer to this [guide](https://docs.mongodb.com/drivers/node/master/quick-start/#create-a-mongodb-cluster) on creating a MongoDB cluster on Atlas.
@@ -41,13 +30,35 @@ Refer to this [guide](https://docs.mongodb.com/drivers/node/master/quick-start/#
 | PORT      | 5000                                         |
 | MONGO_URI | Copy your MongoDB **Connection String** here |
 
-### Installation
+### Running the app
+
+There are 2 ways to run the app
+
+1. [Manual installation](#manual-installation) (for development)
+2. [Run with Docker](#run-with-docker) (for quick setup and run)
+
+#### Manual installation
+
+Recommended for development.
+
+##### Global dependencies
+
+App requires the following dependencies to be installed locally (in the following order):
+
+| No  | Dependency           | Installation Instruction                                                                                   |
+| --- | -------------------- | ---------------------------------------------------------------------------------------------------------- |
+| 1   | NodeJS v16 (via nvm) | Install nvm: https://github.com/nvm-sh/nvm <br /> Run `nvm install && nvm use` <br /> To verify: `node -v` |
+| 2   | NestJS 7 (Optional)  | Install NestJS CLI: https://docs.nestjs.com <br /> To verify: `nest -v`                                    |
+
+> **NB**: NestJS installation is recommended for dev. It is not required to run the app.
+
+##### Installation
 
 ```bash
 $ npm install
 ```
 
-### Running the app
+##### Running the app
 
 ```bash
 # development watch mode
@@ -57,7 +68,7 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-### Test
+##### Test
 
 ```bash
 # unit tests
@@ -67,25 +78,16 @@ $ npm run test
 $ npm run test:cov
 ```
 
+### Run with Docker
+
+Recommended for quick setup.
+
+1. Ensure you have Docker installed on your machine
+2. Ensure `config/config.env` is set up properly in your local repo.
+3. Run `docker compose up`
+
 ### API Documentation + Test Endpoints
 
 [Swagger API](https://pkgcore-test.herokuapp.com/api/)
 
 [GraphQL Playground](https://pkgcore-test.herokuapp.com/graphql/)
-
-### (Experimental) Run app in Docker
-
-To run the app with the Docker instead:
-
-1. Ensure you have Docker installed on your machine
-2. Ensure `config/config.env` is set up properly in your local repo.
-3. Then
-   A. Run `docker compose up`
-   OR
-   B. Run the following commands:
-   ```bash
-    # Build docker image locally
-    $ docker build . -t kampong-backend-core:latest
-    # Run docker image locally. Set port according to the value of PORT in config/config.env
-    $ docker run -p 5000:5000 --env-file config/config.env --rm kampong-backend-core:latest
-   ```

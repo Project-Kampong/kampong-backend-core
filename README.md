@@ -14,6 +14,8 @@
 
 1. Set up database. Refer to this [guide](https://docs.mongodb.com/drivers/node/master/quick-start/#create-a-mongodb-cluster) on creating a MongoDB cluster on Atlas.
     > **NB**: After creating the cluster, take note of the cluster's **Connection String**.
+
+    > **NB2**: Skip this step if setting up with [VSCode Dev Container](#develop-in-vscode-dev-container).
 2. Set up config variables
 
     a. In the file `config/sample.env`, duplicate the file and rename it to `config/config.env`.
@@ -23,7 +25,7 @@
     | --------- | -------------------------------------------- |
     | NODE_ENV  | development / production                     |
     | PORT      | 5000                                         |
-    | MONGO_URI | Copy your MongoDB **Connection String** here |
+    | MONGO_URI | Copy your MongoDB **Connection String** from previous step here.<br/> **(Skip if setting up with [VSCode Dev Container](#develop-in-vscode-dev-container))** |
 3. See [App Setup](#app-setup) to setup the app
 
 ## App Setup

@@ -12,53 +12,79 @@
 
 ## Quick Start
 
-### Setting up database
+1. Set up database. Refer to this [guide](https://docs.mongodb.com/drivers/node/master/quick-start/#create-a-mongodb-cluster) on creating a MongoDB cluster on Atlas.
+    > **NB**: After creating the cluster, take note of the cluster's **Connection String**.
+2. Set up config variables
 
-Refer to this [guide](https://docs.mongodb.com/drivers/node/master/quick-start/#create-a-mongodb-cluster) on creating a MongoDB cluster on Atlas.
+    a. In the file `config/sample.env`, duplicate the file and rename it to `config/config.env`.
 
-> **NB**: After creating the cluster, take note of the cluster's **Connection String**.
+    b. Fill in all credentials required in the new file, as follows:
+    | Variable  | Value                                        |
+    | --------- | -------------------------------------------- |
+    | NODE_ENV  | development / production                     |
+    | PORT      | 5000                                         |
+    | MONGO_URI | Copy your MongoDB **Connection String** here |
+3. See [App Setup](#app-setup) to setup the app
 
-### Set up config variables
+## App Setup
 
-1. In the file `config/sample.env`, duplicate the file and rename it to `config/config.env`.
+There are 3 ways to setup the app
 
-2. Fill in all credentials required in the new file, as follows:
+1. [Develop in VSCode Dev Container](#develop-in-vscode-dev-container) (RECOMMENDED)
+2. [Run with Docker Compose](#run-with-docker-compose)
+3. [Manual installation](#manual-installation)
 
-| Variable  | Value                                        |
-| --------- | -------------------------------------------- |
-| NODE_ENV  | development / production                     |
-| PORT      | 5000                                         |
-| MONGO_URI | Copy your MongoDB **Connection String** here |
-
-### Running the app
-
-There are 2 ways to run the app
-
-1. [Manual installation](#manual-installation) (for development)
-2. [Run with Docker](#run-with-docker) (for quick setup and run)
-
-### Manual installation
+### Develop in VSCode Dev Container
 
 Recommended for development.
 
-#### Global dependencies
+#### Pre-requisite
+- [VSCode](https://code.visualstudio.com/)
+- [Docker](https://www.docker.com/)
+- [VSCode Extension Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) 
+
+#### Steps 
+
+1. Open repo in VSCode.
+2. VSCode will prompt to open the workspace in the remote container. `Folder contains a dev container configuration file. Reopen folder to develop in a container`
+3. Select `Reopen in container`, VSCode will setup a fully ready environment.
+4. Refer to the bottom left-hand corner of VSCode to verify that container is setup. It should have a text stating `Dev Container: Kampong Backend Core Development`
+5. To run app, see [Running the app](#running-the-app)
+
+
+### Run with Docker Compose
+
+Recommended for quick setup. (Eg. to boot app quickly for testing with a frontend framework)
+
+#### Pre-requisite
+- [Docker](https://www.docker.com/)
+
+#### Steps
+
+1. Ensure `config/config.env` is set up in your local repo.
+2. Run `docker compose up`
+3. App will setup and run automatically.
+
+### Manual installation
+
+#### Pre-requisite
 
 App requires the following dependencies to be installed locally (in the following order):
 
-| No  | Dependency           | Installation Instruction                                                                                   |
-| --- | -------------------- | ---------------------------------------------------------------------------------------------------------- |
-| 1   | NodeJS v16 (via nvm) | Install nvm: https://github.com/nvm-sh/nvm <br /> Run `nvm install && nvm use` <br /> To verify: `node -v` |
-| 2   | NestJS 7 (Optional)  | Install NestJS CLI: https://docs.nestjs.com <br /> To verify: `nest -v`                                    |
+- [NodeJS v16 (via nvm)](https://github.com/nvm-sh/nvm) To verify: `nvm -v`
+- [NestJS 7 (Optional)](https://docs.nestjs.com) To verify: `nest -v`
 
-> **NB**: NestJS installation is recommended for dev. It is not required to run the app.
+> **NB**: NestJS installation is required for development. It is not required to run the app.
 
-#### Installation
+#### Steps
 
-```bash
-$ npm install
-```
+1. Run `nvm install && nvm use` 
+2. Verify node version with `node -v`
+3. Run `npm install`
+4. To run app, see [Running the app](#running-the-app)
 
-#### Running the app
+
+## Running the app
 
 ```bash
 # development watch mode
@@ -68,7 +94,7 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-#### Test
+## Test
 
 ```bash
 # unit tests
@@ -77,14 +103,6 @@ $ npm run test
 # test coverage
 $ npm run test:cov
 ```
-
-### Run with Docker
-
-Recommended for quick setup.
-
-1. Ensure you have Docker installed on your machine
-2. Ensure `config/config.env` is set up properly in your local repo.
-3. Run `docker compose up`
 
 ### API Documentation + Test Endpoints
 

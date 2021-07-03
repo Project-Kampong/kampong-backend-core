@@ -15,7 +15,9 @@
 1. Set up database. Refer to this [guide](https://docs.mongodb.com/drivers/node/master/quick-start/#create-a-mongodb-cluster) on creating a MongoDB cluster on Atlas.
     > **NB**: After creating the cluster, take note of the cluster's **Connection String**.
 2. Set up config variables
+
     a. In the file `config/sample.env`, duplicate the file and rename it to `config/config.env`.
+    
     b. Fill in all credentials required in the new file, as follows:
 
         | Variable  | Value                                        |

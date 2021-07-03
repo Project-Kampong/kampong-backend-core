@@ -3,8 +3,11 @@ services:
   web:
     build:
       context: .
+
     image: kampong-backend-core:latest
+
     env_file:
       - config/config.env
+
     ports:
       - '5000:5000'

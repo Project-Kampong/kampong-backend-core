@@ -9,8 +9,8 @@ import {
   Resolver,
 } from '@nestjs/graphql';
 import { isEmpty } from 'lodash';
-import { OrganizedEventsService } from 'src/organized-events/organized-events.service';
-import { OrganizedEvent } from 'src/organized-events/schemas/organized-event.schema';
+import { OrganizedEventsService } from '../organized-events/organized-events.service';
+import { OrganizedEvent } from '../organized-events/schemas/organized-event.schema';
 import { UpdateUserInput } from './dto/update-user.input';
 import { User } from './schemas/user.schema';
 import { UsersService } from './users.service';

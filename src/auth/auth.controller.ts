@@ -17,7 +17,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Request as ExpressRequest } from 'express';
-import { User } from 'src/users/schemas/user.schema';
+import { User } from '../users/schemas/user.schema';
 import { AuthService } from './auth.service';
 import { UserLoginReqDto, UserLoginResDto } from './dto/userLogin.dto';
 import { UserRegisterReqDto, UserRegisterResDto } from './dto/userRegister.dto';

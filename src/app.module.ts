@@ -29,7 +29,7 @@ import { OrganizedEventsModule } from './organized-events/organized-events.modul
     }),
     GraphQLModule.forRoot({
       installSubscriptionHandlers: true,
-      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      autoSchemaFile: join(process.cwd(), 'schema.gql'),
       playground: true,
       introspection: true,
       cors: true,

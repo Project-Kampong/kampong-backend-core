@@ -94,23 +94,21 @@ input UpdateUserInput {
 
 input CreateOrganizedEventInput {
   eventName: String!
+
+  """Start date in ISO8601 date string format"""
   startDate: DateTime!
   endDate: DateTime
   description: String!
-
-  """Organizer's user ID"""
-  organizerId: ID!
   category: String!
 }
 
 input UpdateOrganizedEventInput {
   eventName: String
+
+  """Start date in ISO8601 date string format"""
   startDate: DateTime
   endDate: DateTime
   description: String
-
-  """Organizer's user ID"""
-  organizerId: ID
   category: String
   _id: ID!
 }

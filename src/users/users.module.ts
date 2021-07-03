@@ -13,6 +13,6 @@ import { OrganizedEventsModule } from 'src/organized-events/organized-events.mod
   ],
   controllers: [UsersController],
   providers: [UsersService, UsersResolver],
-  exports: [MongooseModule],
+  exports: [MongooseModule, UsersService],
 })
 export class UsersModule {}

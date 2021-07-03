@@ -1,4 +1,4 @@
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
@@ -12,6 +12,7 @@ async function bootstrap() {
     cors: true,
   });
   app.setGlobalPrefix(GLOBAL_PREFIX);
+  app.useGlobalPipes(new ValidationPipe());
   const configService = app.get(ConfigService);
   const port = configService.get('PORT');
 
@@ -19,6 +20,7 @@ async function bootstrap() {
     .setTitle('Kampong Core Backend')
     .setDescription('API for Kampong Core Backend')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, options);

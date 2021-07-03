@@ -1,8 +1,11 @@
+import { UseGuards } from '@nestjs/common';
 import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';
 import { OrganizedEventsService } from './organized-events.service';
 import { OrganizedEvent } from './schemas/organized-event.schema';
 import { CreateOrganizedEventInput } from './dto/create-organized-event.input';
 import { UpdateOrganizedEventInput } from './dto/update-organized-event.input';
+import { CurrentUser, GqlAuthGuard } from 'src/auth/gql-auth.guard';
+import { JwtPayload } from 'src/auth/jwt.strategy';
 
 @Resolver(() => OrganizedEvent)
 export class OrganizedEventsResolver {
@@ -11,11 +14,16 @@ export class OrganizedEventsResolver {
   ) {}
 
   @Mutation(() => OrganizedEvent)
+  @UseGuards(GqlAuthGuard)
   createOrganizedEvent(
+    @CurrentUser() user: JwtPayload,
     @Args('createOrganizedEventInput')
     createOrganizedEventInput: CreateOrganizedEventInput,
   ) {
-    return this.organizedEventsService.create(createOrganizedEventInput);
+    return this.organizedEventsService.create(
+      user.userId,
+      createOrganizedEventInput,
+    );
   }
 
   @Query(() => [OrganizedEvent], { name: 'organizedEvents' })

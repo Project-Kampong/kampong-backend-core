@@ -35,10 +35,12 @@ Refer to this [guide](https://docs.mongodb.com/drivers/node/master/quick-start/#
 There are 3 ways to setup the app
 
 1. [Develop in VSCode Dev Container](#develop-in-vscode-dev-container) (RECOMMENDED)
-2. [Run with Docker](#run-with-docker)
+2. [Run with Docker Compose](#run-with-docker-compose)
 3. [Manual installation](#manual-installation)
 
 ### Develop in VSCode Dev Container
+
+Recommended for development.
 
 #### Pre-requisite
 - [VSCode](https://code.visualstudio.com/)
@@ -54,16 +56,18 @@ There are 3 ways to setup the app
 5. To run app, see [Running the app](#running-the-app)
 
 
-### Run with Docker
+### Run with Docker Compose
 
 Recommended for quick setup. (Eg. to boot app quickly for testing with a frontend framework)
 
+#### Pre-requisite
+- [Docker](https://www.docker.com/)
+
 #### Steps
 
-1. Ensure you have Docker installed on your machine. Run `docker -v` to verify.
-2. Ensure `config/config.env` is set up in your local repo.
-3. Run `docker compose up`
-4. App will setup and run automatically.
+1. Ensure `config/config.env` is set up in your local repo.
+2. Run `docker compose up`
+3. App will setup and run automatically.
 
 ### Manual installation
 

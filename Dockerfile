@@ -11,8 +11,9 @@ RUN npm run build
 FROM node:16-alpine
 RUN apk add dumb-init
 ENV NODE_ENV production
-USER node
 WORKDIR /usr/src/app
 COPY --chown=node:node --from=build /usr/src/app/node_modules /usr/src/app/node_modules
 COPY --chown=node:node --from=build /usr/src/app/dist /usr/src/app/dist
+RUN ["chown", "-R", "node:node", "/usr/src/app"]
+USER node
 CMD ["dumb-init", "node", "dist/main"]

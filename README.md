@@ -17,14 +17,13 @@
 2. Set up config variables
 
     a. In the file `config/sample.env`, duplicate the file and rename it to `config/config.env`.
-    
-    b. Fill in all credentials required in the new file, as follows:
 
-        | Variable  | Value                                        |
-        | --------- | -------------------------------------------- |
-        | NODE_ENV  | development / production                     |
-        | PORT      | 5000                                         |
-        | MONGO_URI | Copy your MongoDB **Connection String** here |
+    b. Fill in all credentials required in the new file, as follows:
+    | Variable  | Value                                        |
+    | --------- | -------------------------------------------- |
+    | NODE_ENV  | development / production                     |
+    | PORT      | 5000                                         |
+    | MONGO_URI | Copy your MongoDB **Connection String** here |
 3. See [App Setup](#app-setup) to setup the app
 
 ## App Setup

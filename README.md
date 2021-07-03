@@ -12,25 +12,20 @@
 
 ## Quick Start
 
-### Setting up database
+1. Set up database. Refer to this [guide](https://docs.mongodb.com/drivers/node/master/quick-start/#create-a-mongodb-cluster) on creating a MongoDB cluster on Atlas.
+    > **NB**: After creating the cluster, take note of the cluster's **Connection String**.
+2. Set up config variables
+    a. In the file `config/sample.env`, duplicate the file and rename it to `config/config.env`.
+    b. Fill in all credentials required in the new file, as follows:
 
-Refer to this [guide](https://docs.mongodb.com/drivers/node/master/quick-start/#create-a-mongodb-cluster) on creating a MongoDB cluster on Atlas.
+        | Variable  | Value                                        |
+        | --------- | -------------------------------------------- |
+        | NODE_ENV  | development / production                     |
+        | PORT      | 5000                                         |
+        | MONGO_URI | Copy your MongoDB **Connection String** here |
+3. See [App Setup](#app-setup) to setup the app
 
-> **NB**: After creating the cluster, take note of the cluster's **Connection String**.
-
-### Set up config variables
-
-1. In the file `config/sample.env`, duplicate the file and rename it to `config/config.env`.
-
-2. Fill in all credentials required in the new file, as follows:
-
-| Variable  | Value                                        |
-| --------- | -------------------------------------------- |
-| NODE_ENV  | development / production                     |
-| PORT      | 5000                                         |
-| MONGO_URI | Copy your MongoDB **Connection String** here |
-
-### Running the app
+## App Setup
 
 There are 3 ways to setup the app
 

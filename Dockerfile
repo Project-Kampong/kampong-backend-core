@@ -2,7 +2,7 @@
 FROM node:16-alpine AS build
 WORKDIR /usr/src/app
 COPY package*.json /usr/src/app/
-RUN npm ci
+RUN npm ci && npm cache clean --force
 COPY tsconfig*.json /usr/src/app/
 COPY src /usr/src/app/src
 RUN npm run build

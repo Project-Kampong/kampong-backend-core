@@ -22,12 +22,16 @@ export class QuestionsService {
     organizedEventId: string,
     createQuestionInput: CreateQuestionInput,
   ) {
-    const [newQuestion, organizedEvent] = await Promise.all([
-      this.questionModel.create(createQuestionInput),
-      this.organizedEventModel.findById(organizedEventId),
-    ]);
-    organizedEvent.qnaSession?.questions.unshift(newQuestion);
-    const newOrganizedEvent = await organizedEvent.save();
+    const newQuestion = await this.questionModel.create(createQuestionInput);
+    const newOrganizedEvent = await this.organizedEventModel.findByIdAndUpdate(
+      organizedEventId,
+      {
+        $push: {
+          'qnaSession.questions': { $each: [newQuestion], $position: 0 },
+        },
+      },
+      { new: true, lean: true },
+    );
 
     return newOrganizedEvent.qnaSession?.questions[0];
   }

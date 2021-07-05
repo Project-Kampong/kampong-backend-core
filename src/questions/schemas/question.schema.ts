@@ -9,9 +9,12 @@ export type QuestionDocument = Question & mongoose.Document;
 class Answer {
   @Field(() => ID)
   _id: string;
-  @Field(() => ID)
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'users' })
-  userId: string;
+  @Field(() => ID, { nullable: true })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'users', required: false })
+  userId?: string;
+  @Field()
+  @Prop()
+  displayName: string;
   @Field()
   @Prop()
   answerText: string;
@@ -31,9 +34,12 @@ export const AnswerSchema = SchemaFactory.createForClass(Answer);
 export class Question {
   @Field(() => ID)
   _id: string;
-  @Field(() => ID)
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'users' })
-  userId: string;
+  @Field(() => ID, { nullable: true })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'users', required: false })
+  userId?: string;
+  @Field()
+  @Prop()
+  displayName: string;
   @Field()
   @Prop()
   questionText: string;

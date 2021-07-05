@@ -26,7 +26,8 @@ scalar DateTime
 
 type Answer {
   _id: ID!
-  userId: ID!
+  userId: ID
+  displayName: String!
   answerText: String!
   voteCount: Int!
   createdAt: DateTime!
@@ -35,7 +36,8 @@ type Answer {
 
 type Question {
   _id: ID!
-  userId: ID!
+  userId: ID
+  displayName: String!
   questionText: String!
   voteCount: Int!
   answers: [Answer!]!
@@ -55,9 +57,7 @@ type OrganizedEvent {
   endDate: DateTime
   description: String!
 
-  """
-  Organizer's user ID
-  """
+  """Organizer's user ID"""
   organizerId: ID!
   category: String!
   eventPassword: String!
@@ -77,14 +77,12 @@ type Query {
 type Mutation {
   updateUser(updateUserInput: UpdateUserInput!): User!
   deleteUser(_id: ID!): User!
-  createOrganizedEvent(
-    createOrganizedEventInput: CreateOrganizedEventInput!
-  ): OrganizedEvent!
-  updateOrganizedEvent(
-    updateOrganizedEventInput: UpdateOrganizedEventInput!
-  ): OrganizedEvent!
+  createOrganizedEvent(createOrganizedEventInput: CreateOrganizedEventInput!): OrganizedEvent!
+  updateOrganizedEvent(updateOrganizedEventInput: UpdateOrganizedEventInput!): OrganizedEvent!
   removeOrganizedEvent(_id: ID!): OrganizedEvent!
-  createQuestion(createQuestionInput: CreateQuestionInput!, organizedEventId: ID!): [Question!]!
+
+  """Create and return new question in event"""
+  createQuestion(createQuestionInput: CreateQuestionInput!, organizedEventId: ID!): Question!
   updateQuestion(updateQuestionInput: UpdateQuestionInput!): Question!
   removeQuestion(_id: ID!): Question!
 }
@@ -101,9 +99,7 @@ input UpdateUserInput {
 input CreateOrganizedEventInput {
   eventName: String!
 
-  """
-  Start date in ISO8601 date string format
-  """
+  """Start date in ISO8601 date string format"""
   startDate: DateTime!
   endDate: DateTime
   description: String!
@@ -113,9 +109,7 @@ input CreateOrganizedEventInput {
 input UpdateOrganizedEventInput {
   eventName: String
 
-  """
-  Start date in ISO8601 date string format
-  """
+  """Start date in ISO8601 date string format"""
   startDate: DateTime
   endDate: DateTime
   description: String
@@ -124,12 +118,14 @@ input UpdateOrganizedEventInput {
 }
 
 input CreateQuestionInput {
-  userId: ID!
+  userId: ID
+  displayName: String!
   questionText: String!
 }
 
 input UpdateQuestionInput {
   userId: ID
+  displayName: String
   questionText: String
   _id: ID!
   voteCount: Int!

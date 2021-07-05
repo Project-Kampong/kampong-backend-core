@@ -2,14 +2,20 @@ import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 
+export type QuestionDocument = Question & mongoose.Document;
+export type AnswerDocument = Answer & mongoose.Document;
+
 @ObjectType()
 @Schema({ timestamps: true })
 class Answer {
   @Field(() => ID)
   _id: string;
-  @Field(() => ID)
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'users' })
-  userId: string;
+  @Field(() => ID, { nullable: true })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'users', required: false })
+  userId?: string;
+  @Field()
+  @Prop()
+  displayName: string;
   @Field()
   @Prop()
   answerText: string;
@@ -29,9 +35,12 @@ export const AnswerSchema = SchemaFactory.createForClass(Answer);
 export class Question {
   @Field(() => ID)
   _id: string;
-  @Field(() => ID)
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'users' })
-  userId: string;
+  @Field(() => ID, { nullable: true })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'users', required: false })
+  userId?: string;
+  @Field()
+  @Prop()
+  displayName: string;
   @Field()
   @Prop()
   questionText: string;
@@ -40,7 +49,7 @@ export class Question {
   voteCount: number;
   @Field(() => [Answer])
   @Prop({ type: [AnswerSchema] })
-  answers: Answer[];
+  answers: AnswerDocument[];
   @Field()
   createdAt: Date;
   @Field()

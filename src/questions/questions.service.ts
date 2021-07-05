@@ -4,13 +4,16 @@ import { Model } from 'mongoose';
 import {
   OrganizedEvent,
   OrganizedEventDocument,
-} from 'src/organized-events/schemas/organized-event.schema';
+} from '../organized-events/schemas/organized-event.schema';
 import { CreateQuestionInput } from './dto/create-question.input';
 import { UpdateQuestionInput } from './dto/update-question.input';
+import { Question, QuestionDocument } from './schemas/question.schema';
 
 @Injectable()
 export class QuestionsService {
   constructor(
+    @InjectModel(Question.name)
+    private readonly questionModel: Model<QuestionDocument>,
     @InjectModel(OrganizedEvent.name)
     private readonly organizedEventModel: Model<OrganizedEventDocument>,
   ) {}
@@ -19,29 +22,36 @@ export class QuestionsService {
     organizedEventId: string,
     createQuestionInput: CreateQuestionInput,
   ) {
-    const updatedOrganizedEvent = await this.organizedEventModel
-      .findByIdAndUpdate(
-        organizedEventId,
-        {
-          $push: { 'qnaSession.questions': createQuestionInput },
+    const newQuestion = await this.questionModel.create(createQuestionInput);
+    const newOrganizedEvent = await this.organizedEventModel.findByIdAndUpdate(
+      organizedEventId,
+      {
+        $push: {
+          'qnaSession.questions': { $each: [newQuestion], $position: 0 },
         },
-        {
-          new: true,
-          lean: true,
-        },
-      )
-      .exec();
-    const {
-      qnaSession: { questions },
-    } = updatedOrganizedEvent;
-    return questions;
+      },
+      { new: true, lean: true },
+    );
+
+    return newOrganizedEvent.qnaSession?.questions[0];
   }
 
   update(id: string, updateQuestionInput: UpdateQuestionInput) {
     return `This action updates a #${id} question`;
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} question`;
+  async remove(questionId: string) {
+    const organizedEvent = await this.organizedEventModel.findOneAndUpdate(
+      {
+        'qnaSession.questions._id': questionId,
+      },
+      {
+        $pull: { 'qnaSession.questions': { _id: questionId } },
+      },
+    );
+    const questionRemoved = organizedEvent.qnaSession?.questions.find(
+      (qn) => qn.id === questionId,
+    );
+    return questionRemoved;
   }
 }

@@ -8,7 +8,9 @@ import { UpdateQuestionInput } from './dto/update-question.input';
 export class QuestionsResolver {
   constructor(private readonly questionsService: QuestionsService) {}
 
-  @Mutation(() => [Question])
+  @Mutation(() => Question, {
+    description: 'Create and return new question in event',
+  })
   createQuestion(
     @Args('organizedEventId', { type: () => ID }) organizedEventId: string,
     @Args('createQuestionInput') createQuestionInput: CreateQuestionInput,

@@ -3,10 +3,12 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import {
   Question,
+  QuestionDocument,
   QuestionSchema,
-} from 'src/questions/schemas/question.schema';
+} from '../../questions/schemas/question.schema';
 
 export type OrganizedEventDocument = OrganizedEvent & mongoose.Document;
+export type QnaSessionDocument = QnaSession & mongoose.Document;
 
 @ObjectType()
 @Schema()
@@ -15,7 +17,7 @@ class QnaSession {
   _id: string;
   @Field(() => [Question])
   @Prop({ type: [QuestionSchema] })
-  questions: Question[];
+  questions: QuestionDocument[];
 }
 export const QnaSessionSchema = SchemaFactory.createForClass(QnaSession);
 @ObjectType()
@@ -50,7 +52,7 @@ export class OrganizedEvent {
   @Field(() => QnaSession)
   // Apply QnaSessionSchema subdocument default values. See: https://mongoosejs.com/docs/subdocs.html
   @Prop({ type: QnaSessionSchema, default: () => ({}) })
-  qnaSession: QnaSession;
+  qnaSession: QnaSessionDocument;
   @Field()
   createdAt: Date;
   @Field()

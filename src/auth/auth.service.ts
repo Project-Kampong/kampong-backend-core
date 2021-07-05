@@ -4,7 +4,7 @@ import * as bcrypt from 'bcryptjs';
 import { isEmpty } from 'lodash';
 import { User } from '../users/schemas/user.schema';
 import { UserRegisterDto } from './dto/userRegister.dto';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from '../users/users.service';
 import { UserLoginDto } from './dto/userLogin.dto';
 import { JwtPayload } from './jwt.strategy';
 

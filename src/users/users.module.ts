@@ -4,7 +4,7 @@ import { User, UserSchema } from './schemas/user.schema';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { UsersResolver } from './users.resolver';
-import { OrganizedEventsModule } from 'src/organized-events/organized-events.module';
+import { OrganizedEventsModule } from '../organized-events/organized-events.module';
 
 @Module({
   imports: [

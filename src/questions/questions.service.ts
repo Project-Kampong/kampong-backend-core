@@ -36,7 +36,18 @@ export class QuestionsService {
     return `This action updates a #${id} question`;
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} question`;
+  async remove(questionId: string) {
+    const organizedEvent = await this.organizedEventModel.findOneAndUpdate(
+      {
+        'qnaSession.questions._id': questionId,
+      },
+      {
+        $pull: { 'qnaSession.questions': { _id: questionId } },
+      },
+    );
+    const questionRemoved = organizedEvent.qnaSession?.questions.find(
+      (qn) => qn.id === questionId,
+    );
+    return questionRemoved;
   }
 }

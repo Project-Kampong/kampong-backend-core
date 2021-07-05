@@ -3,6 +3,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 
 export type QuestionDocument = Question & mongoose.Document;
+export type AnswerDocument = Answer & mongoose.Document;
 
 @ObjectType()
 @Schema({ timestamps: true })
@@ -48,7 +49,7 @@ export class Question {
   voteCount: number;
   @Field(() => [Answer])
   @Prop({ type: [AnswerSchema] })
-  answers: Answer[];
+  answers: AnswerDocument[];
   @Field()
   createdAt: Date;
   @Field()

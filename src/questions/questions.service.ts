@@ -36,8 +36,26 @@ export class QuestionsService {
     return newOrganizedEvent.qnaSession?.questions[0];
   }
 
-  update(id: string, updateQuestionInput: UpdateQuestionInput) {
-    return `This action updates a #${id} question`;
+  async update(questionId: string, updateQuestionInput: UpdateQuestionInput) {
+    const { voteCount, questionText } = updateQuestionInput;
+    const updatedOrganizedEvent = await this.organizedEventModel
+      .findOneAndUpdate(
+        {
+          'qnaSession.questions._id': questionId,
+        },
+        {
+          $set: {
+            'qnaSession.questions.$.voteCount': voteCount,
+            'qnaSession.questions.$.questionText': questionText,
+          },
+        },
+        { new: true },
+      )
+      .exec();
+
+    return updatedOrganizedEvent.qnaSession?.questions.find(
+      (qn) => qn.id === questionId,
+    );
   }
 
   async remove(questionId: string) {

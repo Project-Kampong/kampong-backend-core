@@ -13,19 +13,22 @@
 ## Quick Start
 
 1. Set up database. Refer to this [guide](https://docs.mongodb.com/drivers/node/master/quick-start/#create-a-mongodb-cluster) on creating a MongoDB cluster on Atlas.
-    > **NB**: After creating the cluster, take note of the cluster's **Connection String**.
 
-    > **NB2**: Skip this step if setting up with [VSCode Dev Container](#develop-in-vscode-dev-container).
+   > **NB**: After creating the cluster, take note of the cluster's **Connection String**.
+
+   > **NB2**: Skip this step if setting up with [VSCode Dev Container](#develop-in-vscode-dev-container).
+
 2. Set up config variables
 
-    a. In the file `config/sample.env`, duplicate the file and rename it to `config/config.env`.
+   a. In the file `config/sample.env`, duplicate the file and rename it to `config/config.env`.
 
-    b. Fill in all credentials required in the new file, as follows:
-    | Variable  | Value                                        |
-    | --------- | -------------------------------------------- |
-    | NODE_ENV  | development / production                     |
-    | PORT      | 5000                                         |
-    | MONGO_URI | Copy your MongoDB **Connection String** from previous step here.<br/> **(Skip if setting up with [VSCode Dev Container](#develop-in-vscode-dev-container))** |
+   b. Fill in all credentials required in the new file, as follows:
+   | Variable | Value |
+   | --------- | -------------------------------------------- |
+   | NODE_ENV | development / production |
+   | PORT | 5000 |
+   | MONGO_URI | Copy your MongoDB **Connection String** from previous step here.<br/> **(Skip if setting up with [VSCode Dev Container](#develop-in-vscode-dev-container))** |
+
 3. See [App Setup](#app-setup) to setup the app
 
 ## App Setup
@@ -41,11 +44,13 @@ There are 3 ways to setup the app
 Recommended for development.
 
 #### Pre-requisite
-- [VSCode](https://code.visualstudio.com/)
-- [Docker](https://www.docker.com/)
-- [VSCode Extension Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) 
 
-#### Steps 
+- [VSCode](https://code.visualstudio.com/)
+- [Docker Engine v19.03.0+](https://docs.docker.com/engine/install/)
+- [Docker Compose v1.29.1+](https://docs.docker.com/compose/install/)
+- [VSCode Extension Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+
+#### Steps
 
 1. Open repo in VSCode.
 2. VSCode will prompt to open the workspace in the remote container. `Folder contains a dev container configuration file. Reopen folder to develop in a container`
@@ -53,18 +58,19 @@ Recommended for development.
 4. Refer to the bottom left-hand corner of VSCode to verify that container is setup. It should have a text stating `Dev Container: Kampong Backend Core Development`
 5. To run app, see [Running the app](#running-the-app)
 
-
 ### Run with Docker Compose
 
 Recommended for quick setup. (Eg. to boot app quickly for testing with a frontend framework)
 
 #### Pre-requisite
-- [Docker](https://www.docker.com/)
+
+- [Docker Engine v19.03.0+](https://docs.docker.com/engine/install/)
+- [Docker Compose v1.29.1+](https://docs.docker.com/compose/install/)
 
 #### Steps
 
 1. Ensure `config/config.env` is set up in your local repo.
-2. Run `docker compose up`
+2. Run `docker-compose up`
 3. App will setup and run automatically.
 
 ### Manual installation
@@ -80,11 +86,10 @@ App requires the following dependencies to be installed locally (in the followin
 
 #### Steps
 
-1. Run `nvm install && nvm use` 
+1. Run `nvm install && nvm use`
 2. Verify node version with `node -v`
 3. Run `npm install`
 4. To run app, see [Running the app](#running-the-app)
-
 
 ## Running the app
 

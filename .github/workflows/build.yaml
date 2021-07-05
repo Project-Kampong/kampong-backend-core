@@ -13,10 +13,6 @@ jobs:
         with:
           node-version: '16'
           check-latest: true
-      - name: Install global dependencies
-        run: |
-          npm install -g @nestjs/cli
-
       - name: Install dependencies, check formatting and build
         run: |
           npm ci 

@@ -4,7 +4,7 @@ import * as mongoose from 'mongoose';
 import {
   Question,
   QuestionSchema,
-} from 'src/questions/schemas/question.schema';
+} from '../../questions/schemas/question.schema';
 
 export type OrganizedEventDocument = OrganizedEvent & mongoose.Document;
 

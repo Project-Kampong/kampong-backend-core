@@ -4,13 +4,16 @@ import { Model } from 'mongoose';
 import {
   OrganizedEvent,
   OrganizedEventDocument,
-} from 'src/organized-events/schemas/organized-event.schema';
+} from '../organized-events/schemas/organized-event.schema';
 import { CreateQuestionInput } from './dto/create-question.input';
 import { UpdateQuestionInput } from './dto/update-question.input';
+import { Question, QuestionDocument } from './schemas/question.schema';
 
 @Injectable()
 export class QuestionsService {
   constructor(
+    @InjectModel(Question.name)
+    private readonly questionModel: Model<QuestionDocument>,
     @InjectModel(OrganizedEvent.name)
     private readonly organizedEventModel: Model<OrganizedEventDocument>,
   ) {}
@@ -19,22 +22,14 @@ export class QuestionsService {
     organizedEventId: string,
     createQuestionInput: CreateQuestionInput,
   ) {
-    const updatedOrganizedEvent = await this.organizedEventModel
-      .findByIdAndUpdate(
-        organizedEventId,
-        {
-          $push: { 'qnaSession.questions': createQuestionInput },
-        },
-        {
-          new: true,
-          lean: true,
-        },
-      )
-      .exec();
-    const {
-      qnaSession: { questions },
-    } = updatedOrganizedEvent;
-    return questions;
+    const [newQuestion, organizedEvent] = await Promise.all([
+      this.questionModel.create(createQuestionInput),
+      this.organizedEventModel.findById(organizedEventId),
+    ]);
+    organizedEvent.qnaSession?.questions.unshift(newQuestion);
+    const newOrganizedEvent = await organizedEvent.save();
+
+    return newOrganizedEvent.qnaSession?.questions[0];
   }
 
   update(id: string, updateQuestionInput: UpdateQuestionInput) {

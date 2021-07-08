@@ -1,4 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import { isEmpty } from 'lodash';
@@ -13,6 +14,7 @@ export class AuthService {
   constructor(
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
+    private readonly configService: ConfigService,
   ) {}
 
   async authenticateUser(username: string, password: string): Promise<User> {
@@ -32,7 +34,7 @@ export class AuthService {
       userId,
       username,
       token,
-      tokenExpiration: process.env.JWT_EXPIRE,
+      tokenExpiration: this.configService.get('JWT_EXPIRE'),
     };
   }
 

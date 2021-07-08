@@ -44,7 +44,6 @@ export class AuthService {
       secure: isSecureCookie,
     };
     res.cookie('token', token, cookieOptions);
-    console.log(res);
 
     return {
       userId,

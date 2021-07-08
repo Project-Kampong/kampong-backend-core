@@ -17,7 +17,6 @@ export class AuthService {
 
   async authenticateUser(username: string, password: string): Promise<User> {
     const loginUser = await this.usersService.findUserByUsername(username);
-
     const isValidUsernameAndPassword =
       !isEmpty(loginUser) &&
       (await this.checkPassword(password, loginUser.password));

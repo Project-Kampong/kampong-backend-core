@@ -30,7 +30,7 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @ApiBody({ type: UserLoginReqDto })
   @ApiOkResponse({
-    status: 200,
+    status: HttpStatus.OK,
     description: 'User logged in',
     type: UserLoginResDto,
   })
@@ -58,7 +58,6 @@ export class AuthController {
   @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth()
   @ApiOkResponse({
-    status: 200,
     description: 'Decoded JWT payload: User ID and username',
     type: JwtPayload,
   })

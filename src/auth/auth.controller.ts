@@ -6,6 +6,7 @@ import {
   HttpStatus,
   Post,
   Request,
+  Response,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
@@ -16,6 +17,7 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { Response as ExpressResponse } from 'express';
 import { AuthService } from './auth.service';
 import { UserLoginReqDto, UserLoginResDto } from './dto/userLogin.dto';
 import { UserRegisterReqDto, UserRegisterResDto } from './dto/userRegister.dto';
@@ -34,9 +36,12 @@ export class AuthController {
     description: 'User logged in',
     type: UserLoginResDto,
   })
-  async userLogin(@Request() req: RequestWithUser): Promise<UserLoginResDto> {
+  async userLogin(
+    @Request() req: RequestWithUser,
+    @Response({ passthrough: true }) res: ExpressResponse,
+  ): Promise<UserLoginResDto> {
     const { userId, username } = req.user;
-    return this.authService.login(userId, username);
+    return this.authService.login(userId, username, res);
   }
 
   @Post('register')

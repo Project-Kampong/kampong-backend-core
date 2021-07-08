@@ -16,12 +16,10 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { Request as ExpressRequest } from 'express';
-import { User } from '../users/schemas/user.schema';
 import { AuthService } from './auth.service';
 import { UserLoginReqDto, UserLoginResDto } from './dto/userLogin.dto';
 import { UserRegisterReqDto, UserRegisterResDto } from './dto/userRegister.dto';
-import { JwtPayload } from './jwt.strategy';
+import { JwtPayload, RequestWithUser } from './auth.entity';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -36,10 +34,9 @@ export class AuthController {
     description: 'User logged in',
     type: UserLoginResDto,
   })
-  async userLogin(
-    @Request() req: ExpressRequest & { user: User },
-  ): Promise<UserLoginResDto> {
-    return this.authService.login(req.user);
+  async userLogin(@Request() req: RequestWithUser): Promise<UserLoginResDto> {
+    const { userId, username } = req.user;
+    return this.authService.login(userId, username);
   }
 
   @Post('register')
@@ -67,7 +64,7 @@ export class AuthController {
   })
   async getMe(
     @Request()
-    req: ExpressRequest & { user: JwtPayload },
+    req: RequestWithUser,
   ) {
     return req.user;
   }

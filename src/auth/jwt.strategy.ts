@@ -1,14 +1,8 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
-import { ApiProperty } from '@nestjs/swagger';
+import { JwtPayload } from './auth.entity';
 
-export class JwtPayload {
-  @ApiProperty()
-  userId: string;
-  @ApiProperty()
-  username: string;
-}
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {

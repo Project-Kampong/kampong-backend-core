@@ -5,7 +5,7 @@ import { OrganizedEvent } from './schemas/organized-event.schema';
 import { CreateOrganizedEventInput } from './dto/create-organized-event.input';
 import { UpdateOrganizedEventInput } from './dto/update-organized-event.input';
 import { CurrentUser, GqlAuthGuard } from '../auth/gql-auth.guard';
-import { JwtPayload } from '../auth/jwt.strategy';
+import { JwtPayload } from '../auth/auth.entity';
 
 @Resolver(() => OrganizedEvent)
 export class OrganizedEventsResolver {

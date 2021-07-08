@@ -6,7 +6,7 @@ import { User } from '../users/schemas/user.schema';
 import { UserRegisterDto } from './dto/userRegister.dto';
 import { UsersService } from '../users/users.service';
 import { UserLoginDto } from './dto/userLogin.dto';
-import { JwtPayload } from './jwt.strategy';
+import { JwtPayload } from './auth.entity';
 
 @Injectable()
 export class AuthService {
@@ -27,11 +27,11 @@ export class AuthService {
     return loginUser;
   }
 
-  login(loginUser: User): UserLoginDto {
-    const token = this.getSignedJwtToken(loginUser);
+  login(userId: string, username: string): UserLoginDto {
+    const token = this.getSignedJwtToken(userId, username);
     return {
-      userId: loginUser._id,
-      username: loginUser.username,
+      userId,
+      username,
       token,
       tokenExpiration: process.env.JWT_EXPIRE,
     };
@@ -58,7 +58,7 @@ export class AuthService {
       hashedPassword,
     );
 
-    const token = this.getSignedJwtToken(newUser);
+    const token = this.getSignedJwtToken(newUser._id, newUser.username);
     return {
       userId: newUser._id,
       username: newUser.username,
@@ -67,10 +67,10 @@ export class AuthService {
     };
   }
 
-  private getSignedJwtToken(loginUser: User) {
+  private getSignedJwtToken(userId: string, username: string) {
     const payload: JwtPayload = {
-      userId: loginUser._id,
-      username: loginUser.username,
+      userId,
+      username,
     };
     return this.jwtService.sign(payload);
   }

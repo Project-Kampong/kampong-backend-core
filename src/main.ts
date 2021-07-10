@@ -20,6 +20,7 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
   const port = configService.get('PORT');
+  const NODE_ENV = configService.get('NODE_ENV');
 
   const options = new DocumentBuilder()
     .setTitle('Kampong Core Backend')
@@ -32,7 +33,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
   app.listen(port, () => {
     Logger.log(
-      `Server listening on http://localhost:${port}/${GLOBAL_PREFIX} in ${process.env.NODE_ENV} mode`,
+      `Server listening on http://localhost:${port}/${GLOBAL_PREFIX} in ${NODE_ENV} mode`,
     );
   });
 }

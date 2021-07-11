@@ -8,7 +8,7 @@ export class UserRegisterDto {
 
   token: string;
 
-  tokenExpiration: string;
+  tokenExpiration: Date;
 }
 
 export class UserRegisterReqDto {
@@ -36,5 +36,5 @@ export class UserRegisterResDto {
   token: string;
 
   @ApiProperty()
-  tokenExpiration: string;
+  tokenExpiration: Date;
 }

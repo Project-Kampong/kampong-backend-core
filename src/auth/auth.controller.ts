@@ -6,6 +6,7 @@ import {
   HttpStatus,
   Post,
   Request,
+  Response,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
@@ -16,12 +17,11 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { Request as ExpressRequest } from 'express';
-import { User } from '../users/schemas/user.schema';
+import { Response as ExpressResponse } from 'express';
 import { AuthService } from './auth.service';
 import { UserLoginReqDto, UserLoginResDto } from './dto/userLogin.dto';
 import { UserRegisterReqDto, UserRegisterResDto } from './dto/userRegister.dto';
-import { JwtPayload } from './jwt.strategy';
+import { JwtPayload, RequestWithUser } from './auth.entity';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -32,14 +32,16 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @ApiBody({ type: UserLoginReqDto })
   @ApiOkResponse({
-    status: 200,
+    status: HttpStatus.OK,
     description: 'User logged in',
     type: UserLoginResDto,
   })
   async userLogin(
-    @Request() req: ExpressRequest & { user: User },
+    @Request() req: RequestWithUser,
+    @Response({ passthrough: true }) res: ExpressResponse,
   ): Promise<UserLoginResDto> {
-    return this.authService.login(req.user);
+    const { userId, username } = req.user;
+    return this.authService.login(userId, username, res);
   }
 
   @Post('register')
@@ -61,13 +63,12 @@ export class AuthController {
   @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth()
   @ApiOkResponse({
-    status: 200,
     description: 'Decoded JWT payload: User ID and username',
     type: JwtPayload,
   })
   async getMe(
     @Request()
-    req: ExpressRequest & { user: JwtPayload },
+    req: RequestWithUser,
   ) {
     return req.user;
   }

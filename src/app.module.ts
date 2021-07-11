@@ -1,8 +1,7 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
-import * as mongoSanitize from 'express-mongo-sanitize';
 import * as Joi from 'joi';
 import { join } from 'path';
 import { UsersModule } from './users/users.module';
@@ -45,8 +44,4 @@ import { OrganizedEventsModule } from './organized-events/organized-events.modul
   controllers: [],
   providers: [],
 })
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(mongoSanitize());
-  }
-}
+export class AppModule {}

@@ -3,6 +3,8 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as cookieParser from 'cookie-parser';
+import * as mongoSanitize from 'express-mongo-sanitize';
 import { AppModule } from './app.module';
 
 const GLOBAL_PREFIX = 'api';
@@ -13,6 +15,9 @@ async function bootstrap() {
   });
   app.setGlobalPrefix(GLOBAL_PREFIX);
   app.useGlobalPipes(new ValidationPipe());
+  app.use(cookieParser());
+  app.use(mongoSanitize());
+
   const configService = app.get(ConfigService);
   const port = configService.get('PORT');
   const NODE_ENV = configService.get('NODE_ENV');

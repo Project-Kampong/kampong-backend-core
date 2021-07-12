@@ -37,7 +37,10 @@ import { QuestionsModule } from './questions/questions.module';
       autoSchemaFile: join(process.cwd(), 'schema.gql'),
       playground: true,
       introspection: true,
-      cors: true,
+      cors: {
+        credentials: true,
+        origin: true,
+      },
     }),
     UsersModule,
     AuthModule,

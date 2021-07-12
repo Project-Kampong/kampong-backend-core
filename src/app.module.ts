@@ -8,6 +8,7 @@ import { join } from 'path';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { OrganizedEventsModule } from './organized-events/organized-events.module';
+import { QuestionsModule } from './questions/questions.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { OrganizedEventsModule } from './organized-events/organized-events.modul
     UsersModule,
     AuthModule,
     OrganizedEventsModule,
+    QuestionsModule,
   ],
   controllers: [],
   providers: [],

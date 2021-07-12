@@ -124,9 +124,7 @@ input CreateQuestionInput {
 }
 
 input UpdateQuestionInput {
-  userId: ID
-  displayName: String
-  questionText: String
   _id: ID!
   voteCount: Int!
+  questionText: String!
 }

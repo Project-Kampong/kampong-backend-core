@@ -1,11 +1,15 @@
-import { CreateQuestionInput } from './create-question.input';
-import { InputType, Field, ID, PartialType, Int } from '@nestjs/graphql';
+import { InputType, Field, ID, Int } from '@nestjs/graphql';
 
 @InputType()
-export class UpdateQuestionInput extends PartialType(CreateQuestionInput) {
+export class UpdateQuestionInput {
   @Field(() => ID)
   _id: string;
 
+  // TODO: Refactor as optional field. Current update method requires this field.
   @Field(() => Int)
   voteCount: number;
+
+  // TODO: Refactor as optional field. Current update method requires this field.
+  @Field()
+  questionText: string;
 }

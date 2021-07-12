@@ -1,5 +1,5 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
 import * as mongoSanitize from 'express-mongo-sanitize';
@@ -22,11 +22,15 @@ import { QuestionsModule } from './questions/questions.module';
         PORT: Joi.number().default(3000),
       }),
     }),
-    MongooseModule.forRoot(process.env.MONGO_URI, {
-      useCreateIndex: true,
-      useFindAndModify: false,
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+    MongooseModule.forRootAsync({
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get('MONGO_URI'),
+        useCreateIndex: true,
+        useFindAndModify: false,
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      }),
+      inject: [ConfigService],
     }),
     GraphQLModule.forRoot({
       installSubscriptionHandlers: true,

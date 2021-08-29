@@ -14,7 +14,11 @@ jobs:
         with:
           HOST: ${{ secrets.DEV_HOST }}
           USERNAME: root
-          PORT: 22
-          PASSWORD: ${{ secrets.DEV_PASSWORD }}
+          KEY: ${{ secrets.DEV_SSH_KEY }}
           script: |
-            ~/update/kampong-backend-core.sh
+            git checkout master && \
+            git pull origin master && \
+            nvm use && \
+            npm i && \
+            npm run build && \
+            npm start

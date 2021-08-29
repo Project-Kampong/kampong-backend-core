@@ -17,6 +17,7 @@ jobs:
           KEY: ${{ secrets.DEV_SSH_KEY }}
           script_stop: true
           script: |
+            source ~/.zshrc && \
             cd ${{ secrets.REPO_DIR }} && \
             git checkout master && \
             git pull origin master && \

@@ -15,7 +15,9 @@ jobs:
           HOST: ${{ secrets.DEV_HOST }}
           USERNAME: root
           KEY: ${{ secrets.DEV_SSH_KEY }}
+          script_stop: true
           script: |
+            cd ${{ secrets.REPO_DIR }} && \
             git checkout master && \
             git pull origin master && \
             nvm use && \

@@ -24,4 +24,4 @@ jobs:
             nvm use && \
             npm i && \
             npm run build && \
-            npm start
+            pm2 restart kampong-backend-core

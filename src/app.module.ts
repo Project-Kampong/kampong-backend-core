@@ -25,8 +25,6 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
     MongooseModule.forRootAsync({
       useFactory: async (configService: ConfigService) => ({
         uri: configService.get('MONGO_URI'),
-        useCreateIndex: true,
-        useFindAndModify: false,
         useNewUrlParser: true,
         useUnifiedTopology: true,
       }),

@@ -26,7 +26,7 @@
    | Variable | Value |
    | --------- | -------------------------------------------- |
    | NODE_ENV | development / production |
-   | PORT | 5000 |
+   | PORT | 5050 |
    | MONGO_URI | Copy your MongoDB **Connection String** from previous step here.<br/> **(Skip if setting up with [VSCode Dev Container](#develop-in-vscode-dev-container))** |
 
 3. See [App Setup](#app-setup) to setup the app

@@ -26,7 +26,8 @@ scalar DateTime
 
 type Answer {
   _id: ID!
-  userId: ID!
+  userId: ID
+  displayName: String!
   answerText: String!
   voteCount: Int!
   createdAt: DateTime!
@@ -35,7 +36,8 @@ type Answer {
 
 type Question {
   _id: ID!
-  userId: ID!
+  userId: ID
+  displayName: String!
   questionText: String!
   voteCount: Int!
   answers: [Answer!]!
@@ -78,6 +80,11 @@ type Mutation {
   createOrganizedEvent(createOrganizedEventInput: CreateOrganizedEventInput!): OrganizedEvent!
   updateOrganizedEvent(updateOrganizedEventInput: UpdateOrganizedEventInput!): OrganizedEvent!
   removeOrganizedEvent(_id: ID!): OrganizedEvent!
+
+  """Create and return new question in event"""
+  createQuestion(createQuestionInput: CreateQuestionInput!, organizedEventId: ID!): Question!
+  updateQuestion(updateQuestionInput: UpdateQuestionInput!): Question!
+  removeQuestion(_id: ID!): Question!
 }
 
 input UpdateUserInput {
@@ -108,4 +115,16 @@ input UpdateOrganizedEventInput {
   description: String
   category: String
   _id: ID!
+}
+
+input CreateQuestionInput {
+  userId: ID
+  displayName: String!
+  questionText: String!
+}
+
+input UpdateQuestionInput {
+  _id: ID!
+  voteCount: Int!
+  questionText: String!
 }

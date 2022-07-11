@@ -13,6 +13,8 @@ async function bootstrap() {
   });
   app.setGlobalPrefix(GLOBAL_PREFIX);
   app.useGlobalPipes(new ValidationPipe());
+  app.enableCors({ origin: true, credentials: true });
+
   const configService = app.get(ConfigService);
   const port = configService.get('PORT');
   const NODE_ENV = configService.get('NODE_ENV');

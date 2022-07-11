@@ -58,6 +58,8 @@ Recommended for development.
 4. Refer to the bottom left-hand corner of VSCode to verify that container is setup. It should have a text stating `Dev Container: Kampong Backend Core Development`
 5. To run app, see [Running the app](#running-the-app)
 
+> NB: After changing env vars in `config/config.env`, the devcontainer must be re-built: `CMD` + `SHIFT` + `P` > Select `Rebuild and Reopen in Container`
+
 ### Run with Docker Compose
 
 Recommended for quick setup. (Eg. to boot app quickly for testing with a frontend framework)

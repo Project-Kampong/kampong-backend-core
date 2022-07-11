@@ -26,7 +26,7 @@
    | Variable | Value |
    | --------- | -------------------------------------------- |
    | NODE_ENV | development / production |
-   | PORT | 5000 |
+   | PORT | 5050 |
    | MONGO_URI | Copy your MongoDB **Connection String** from previous step here.<br/> **(Skip if setting up with [VSCode Dev Container](#develop-in-vscode-dev-container))** |
 
 3. See [App Setup](#app-setup) to setup the app
@@ -57,6 +57,8 @@ Recommended for development.
 3. Select `Reopen in container`, VSCode will setup a fully ready environment.
 4. Refer to the bottom left-hand corner of VSCode to verify that container is setup. It should have a text stating `Dev Container: Kampong Backend Core Development`
 5. To run app, see [Running the app](#running-the-app)
+
+> NB: After changing env vars in `config/config.env`, the devcontainer must be re-built: `CMD` + `SHIFT` + `P` > Select `Rebuild and Reopen in Container`
 
 ### Run with Docker Compose
 
